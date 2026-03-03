@@ -1,0 +1,98 @@
+Conflict avoidance rules (the ones that actually work)
+1) Keep dev updated from main on a schedule
+
+Do this at least daily (or whenever main changes):
+
+git checkout dev
+git fetch origin
+git merge origin/main
+git push origin dev
+
+If you prefer rebase (cleaner history, but use only if team agrees):
+
+git checkout dev
+git fetch origin
+git rebase origin/main
+git push --force-with-lease origin dev
+
+Safer default: merge, not rebase (less risk with shared branches).
+
+2) Always update your feature branch from dev before opening/merging PR
+
+This is the #1 conflict killer.
+
+git checkout feature/claim-ui
+git fetch origin
+git merge origin/dev
+# fix conflicts if any (ideally none)
+git push
+
+Then open PR: feature/claim-ui → dev.
+
+3) Keep PRs small and short-lived
+
+Big PRs rot and conflict. Your “thin slice” approach is perfect:
+
+1 feature branch = 1 vertical slice or sub-slice
+
+Merge within 24–72 hours
+
+4) Define “ownership” for hot files
+
+Conflicts usually happen in:
+
+package.json
+
+README.md
+
+prisma/schema.prisma
+
+tailwind.config.*
+
+global layout files
+
+Process fix:
+
+Only 1 PR at a time changes “load-bearing” config files OR
+
+You coordinate those changes first, merge them, then branch off dev again.
+
+5) Use “merge queue” behavior manually (simple)
+
+Don’t merge PRs until:
+
+Cloudflare preview looks good
+
+The PR branch is updated with latest dev
+
+This prevents two PRs merging with stale bases.
+
+The clean promotion flow (dev → main) with minimal pain
+
+When client approves a set of features:
+
+git checkout main
+git fetch origin
+git merge origin/dev
+git push origin main
+
+Then (optional but clean):
+
+git checkout dev
+git merge origin/main
+git push origin dev
+
+That keeps dev and main aligned.
+
+The #1 way conflicts happen (and how to prevent it)
+
+Cause: Two branches both touch the same foundational file (like auth config, schema, routes).
+Prevention: Sequence foundational work first.
+
+Example order:
+
+Merge “scaffolding + auth + DB schema” PR into dev
+
+Everyone branches off updated dev
+
+Only then build feature screens
