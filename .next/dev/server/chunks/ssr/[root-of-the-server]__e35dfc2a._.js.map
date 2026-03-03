@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/ILF_Ebook_App/src/app/page.tsx"],"sourcesContent":["\nimport { redirect } from \"next/navigation\";\n\nexport default function Page() {\n  redirect(\"/claim/school-visit\");\n  // No UI rendered\n}\n"],"names":[],"mappings":";;;;AACA;AAAA;;AAEe,SAAS;IACtB,IAAA,iMAAQ,EAAC;AACT,iBAAiB;AACnB"}}]
-}
