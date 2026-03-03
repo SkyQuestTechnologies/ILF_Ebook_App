@@ -22,3 +22,35 @@ bash scripts/repo-doctor.sh
 
 This script is safe and idempotent: you can run it multiple times without risk of losing work. All replaced files/folders are backed up with a `__old` suffix.
 # ILF_Ebook_App
+
+
+## Cloudflare Deployment (Non-Interactive)
+
+### Required Environment Variables
+
+- `CLOUDFLARE_API_TOKEN` (required)
+- `CLOUDFLARE_ACCOUNT_ID` (required)
+
+### Token Permissions
+
+- **Workers Scripts**: Edit (required)
+- **Workers Tail**: Read (optional, for tailing logs)
+- **Workers KV Storage**: Edit (optional, if using KV)
+
+### Non-Interactive Deploy
+
+To deploy without prompts:
+
+```bash
+npm run deploy:cf
+# or
+CI=1 wrangler deploy
+```
+
+To validate authentication:
+
+```bash
+npm run whoami:cf
+# or
+CI=1 wrangler whoami
+```
