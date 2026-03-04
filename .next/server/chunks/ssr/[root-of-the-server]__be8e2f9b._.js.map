@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/app/page.tsx"],"sourcesContent":["\nimport { redirect } from \"next/navigation\";\n\nexport default function Page() {\n  redirect(\"/claim/school-visit\");\n  // No UI rendered\n}\n"],"names":[],"mappings":"qUACA,EAAA,CAAA,CAAA,OAAA,IAAA,EAAA,EAAA,CAAA,CAAA,OAEe,SAAS,IACtB,CAAA,EAAA,EAAA,QAAA,AAAQ,EAAC,sBAEX"}

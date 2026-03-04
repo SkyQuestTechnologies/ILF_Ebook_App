@@ -101,7 +101,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/workspaces/ILF_Ebook_App",
+    "outputFileTracingRoot": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -294,11 +294,11 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/workspaces/ILF_Ebook_App"
+      "root": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/workspaces/ILF_Ebook_App",
+  "appDir": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

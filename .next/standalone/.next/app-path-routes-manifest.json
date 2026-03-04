@@ -1,7 +1,11 @@
 {
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/api/ebook/free/route": "/api/ebook/free",
   "/api/health/route": "/api/health",
   "/claim/[slug]/page": "/claim/[slug]",
-  "/page": "/"
+  "/library/page": "/library",
+  "/page": "/",
+  "/signin/page": "/signin"
 }

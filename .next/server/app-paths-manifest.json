@@ -1,7 +1,11 @@
 {
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/ebook/free/route": "app/api/ebook/free/route.js",
   "/api/health/route": "app/api/health/route.js",
   "/claim/[slug]/page": "app/claim/[slug]/page.js",
-  "/page": "app/page.js"
+  "/library/page": "app/library/page.js",
+  "/page": "app/page.js",
+  "/signin/page": "app/signin/page.js"
 }

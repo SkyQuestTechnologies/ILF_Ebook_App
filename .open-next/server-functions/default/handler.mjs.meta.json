@@ -3587,12 +3587,22 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js": {
-      "bytes": 6147,
+      "bytes": 6637,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/signin/page_client-reference-manifest.js": {
+      "bytes": 7481,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/library/page_client-reference-manifest.js": {
+      "bytes": 6645,
       "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-      "bytes": 6004,
+      "bytes": 6602,
       "imports": [],
       "format": "cjs"
     },
@@ -3602,7 +3612,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/claim/[slug]/page_client-reference-manifest.js": {
-      "bytes": 6888,
+      "bytes": 7557,
       "imports": [],
       "format": "cjs"
     },
@@ -3611,8 +3621,18 @@
       "imports": [],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/app/api/ebook/free/route_client-reference-manifest.js": {
+      "bytes": 317,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route_client-reference-manifest.js": {
+      "bytes": 325,
+      "imports": [],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-      "bytes": 19490,
+      "bytes": 22458,
       "imports": [
         {
           "path": "path",
@@ -3637,34 +3657,49 @@
         {
           "path": ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/signin/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/signin/page_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/library/page_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/library/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/claim/[slug]/page_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/claim/[slug]/page_client-reference-manifest.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/claim/[slug]/page_client-reference-manifest.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/api/health/route_client-reference-manifest.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/health/route_client-reference-manifest.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/health/route_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/api/ebook/free/route_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/ebook/free/route_client-reference-manifest.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route_client-reference-manifest.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route_client-reference-manifest.js"
         }
       ],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js": {
-      "bytes": 1109,
-      "imports": [],
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js": {
@@ -3674,28 +3709,6 @@
           "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
           "kind": "require-call",
           "original": "next/dist/shared/lib/no-fallback-error.external.js"
-        }
-      ],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js": {
-      "bytes": 475,
-      "imports": [
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/async-local-storage.js",
-          "kind": "require-call",
-          "original": "./async-local-storage"
-        }
-      ],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js": {
-      "bytes": 443,
-      "imports": [
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js",
-          "kind": "require-call",
-          "original": "./dynamic-access-async-storage-instance"
         }
       ],
       "format": "cjs"
@@ -3911,7 +3924,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js": {
-      "bytes": 517735,
+      "bytes": 517755,
       "imports": [
         {
           "path": "url",
@@ -4046,49 +4059,35 @@
         {
           "path": ".open-next/server-functions/default/cache.cjs",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
         }
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js": {
-      "bytes": 3300,
+    ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js": {
+      "bytes": 475,
       "imports": [
         {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/async-local-storage.js",
           "kind": "require-call",
-          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/action-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
-          "kind": "require-call",
-          "original": "next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/work-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+          "original": "./async-local-storage"
         }
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js": {
-      "bytes": 1946,
+    ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js": {
+      "bytes": 443,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js",
+          "kind": "require-call",
+          "original": "./dynamic-access-async-storage-instance"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js": {
+      "bytes": 6891,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/@opentelemetry/api/index.js",
@@ -4096,14 +4095,9 @@
           "original": "next/dist/compiled/@opentelemetry/api"
         },
         {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
           "kind": "require-call",
-          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
         },
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
@@ -4121,9 +4115,14 @@
           "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
         },
         {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
           "kind": "require-call",
-          "original": "next/dist/server/app-render/action-async-storage.external.js"
+          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
         }
       ],
       "format": "cjs"
@@ -4144,23 +4143,59 @@
       ],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js": {
+      "bytes": 8955,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js": {
       "bytes": 123,
       "imports": [],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js": {
+      "bytes": 45660,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js": {
+      "bytes": 48919,
+      "imports": [],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js": {
       "bytes": 20724,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js": {
-      "bytes": 53859,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js": {
-      "bytes": 45836,
       "imports": [],
       "format": "cjs"
     },
@@ -4181,6 +4216,47 @@
           "path": "path",
           "kind": "require-call",
           "external": true
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js": {
+      "bytes": 1428,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js": {
+      "bytes": 3476,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
         }
       ],
       "format": "cjs"
@@ -4212,9 +4288,14 @@
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js": {
-      "bytes": 1055,
+    ".open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js": {
+      "bytes": 1280,
       "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
+        },
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
           "kind": "require-call",
@@ -4244,12 +4325,17 @@
           "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
           "kind": "require-call",
           "original": "next/dist/shared/lib/no-fallback-error.external.js"
+        },
+        {
+          "path": "crypto",
+          "kind": "require-call",
+          "external": true
         }
       ],
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js": {
-      "bytes": 152312,
+      "bytes": 152332,
       "imports": [
         {
           "path": "url",
@@ -4334,7 +4420,7 @@
         {
           "path": ".open-next/server-functions/default/cache.cjs",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
         },
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
@@ -4354,8 +4440,8 @@
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js": {
-      "bytes": 149979,
+    ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js": {
+      "bytes": 145881,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js",
@@ -4365,40 +4451,19 @@
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js": {
-      "bytes": 123,
+    ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js": {
+      "bytes": 140,
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js": {
-      "bytes": 3350,
-      "imports": [
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
-          "kind": "require-call",
-          "original": "next/dist/shared/lib/no-fallback-error.external.js"
-        }
-      ],
+    ".open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js": {
+      "bytes": 190160,
+      "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js": {
-      "bytes": 1581,
+    ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js": {
+      "bytes": 7293,
       "imports": [
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/@opentelemetry/api/index.js",
-          "kind": "require-call",
-          "original": "next/dist/compiled/@opentelemetry/api"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
-          "kind": "require-call",
-          "original": "next/dist/server/app-render/action-async-storage.external.js"
-        },
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
           "kind": "require-call",
@@ -4418,12 +4483,120 @@
           "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
           "kind": "require-call",
           "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/@opentelemetry/api/index.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/@opentelemetry/api"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
+          "kind": "require-call",
+          "original": "next/dist/shared/lib/no-fallback-error.external.js"
         }
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js": {
-      "bytes": 663,
+    ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js": {
+      "bytes": 128,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js": {
+      "bytes": 7104,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/@opentelemetry/api/index.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/@opentelemetry/api"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
+          "kind": "require-call",
+          "original": "next/dist/shared/lib/no-fallback-error.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js": {
+      "bytes": 123,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js": {
+      "bytes": 3419,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
+          "kind": "require-call",
+          "original": "next/dist/shared/lib/no-fallback-error.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js": {
+      "bytes": 6526,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/@opentelemetry/api/index.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/@opentelemetry/api"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/after-task-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/after-task-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+          "kind": "require-call",
+          "original": "next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/dynamic-access-async-storage.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js": {
+      "bytes": 5954,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
@@ -4449,8 +4622,13 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js": {
-      "bytes": 80756,
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js": {
+      "bytes": 1996,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js": {
+      "bytes": 79028,
       "imports": [],
       "format": "cjs"
     },
@@ -4464,8 +4642,50 @@
       "imports": [],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js": {
-      "bytes": 369,
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js": {
+      "bytes": 432,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
+          "kind": "require-call",
+          "original": "next/dist/shared/lib/no-fallback-error.external.js"
+        },
+        {
+          "path": "crypto",
+          "kind": "require-call",
+          "external": true
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js": {
+      "bytes": 17388,
+      "imports": [
+        {
+          "path": "path",
+          "kind": "require-call",
+          "external": true
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js": {
+      "bytes": 227014,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js": {
+      "bytes": 120,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js": {
+      "bytes": 29158,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js": {
+      "bytes": 495,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
@@ -4486,18 +4706,71 @@
       ],
       "format": "cjs"
     },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js": {
-      "bytes": 29214,
-      "imports": [],
-      "format": "cjs"
-    },
     ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js": {
       "bytes": 112,
       "imports": [],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js": {
+      "bytes": 29158,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js": {
+      "bytes": 2597,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/work-unit-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/work-unit-async-storage.external.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage.external.js",
+          "kind": "require-call",
+          "original": "next/dist/server/app-render/action-async-storage.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js": {
+      "bytes": 1318,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/node_modules/next/dist/shared/lib/no-fallback-error.external.js",
+          "kind": "require-call",
+          "original": "next/dist/shared/lib/no-fallback-error.external.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js": {
+      "bytes": 17382,
+      "imports": [
+        {
+          "path": "path",
+          "kind": "require-call",
+          "external": true
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js": {
+      "bytes": 34014,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js": {
+      "bytes": 117,
+      "imports": [],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js": {
-      "bytes": 37230,
+      "bytes": 41779,
       "imports": [
         {
           "path": "next/dist/compiled/@vercel/og/index.edge.js",
@@ -4525,164 +4798,249 @@
           "external": true
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js"
-        },
-        {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js"
         },
         {
           "path": "<runtime>",
@@ -4693,7 +5051,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-      "bytes": 37240,
+      "bytes": 41789,
       "imports": [
         {
           "path": "next/dist/compiled/@vercel/og/index.edge.js",
@@ -4721,164 +5079,249 @@
           "external": true
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js"
-        },
-        {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_45780354.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_75761787.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js"
         },
         {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js",
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js",
-          "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js"
         },
         {
           "path": "<runtime>",
@@ -4900,12 +5343,34 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/_not-found/page.js": {
-      "bytes": 855,
+      "bytes": 841,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
           "kind": "require-call",
           "original": "../../chunks/ssr/[turbopack]_runtime.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route.js": {
+      "bytes": 402,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js",
+          "kind": "require-call",
+          "original": "../../../../chunks/[turbopack]_runtime.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/app/api/ebook/free/route.js": {
+      "bytes": 344,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js",
+          "kind": "require-call",
+          "original": "../../../../chunks/[turbopack]_runtime.js"
         }
       ],
       "format": "cjs"
@@ -4922,7 +5387,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/app/claim/[slug]/page.js": {
-      "bytes": 1011,
+      "bytes": 997,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4932,8 +5397,19 @@
       ],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/app/library/page.js": {
+      "bytes": 1086,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
+          "kind": "require-call",
+          "original": "../../chunks/ssr/[turbopack]_runtime.js"
+        }
+      ],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/app/page.js": {
-      "bytes": 1019,
+      "bytes": 1027,
       "imports": [
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
@@ -4943,8 +5419,19 @@
       ],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/app/signin/page.js": {
+      "bytes": 982,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
+          "kind": "require-call",
+          "original": "../../chunks/ssr/[turbopack]_runtime.js"
+        }
+      ],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-      "bytes": 5191,
+      "bytes": 6217,
       "imports": [
         {
           "path": "path",
@@ -4994,27 +5481,47 @@
         {
           "path": ".open-next/server-functions/default/.next/server/app/_global-error/page.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_global-error/page.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_global-error/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/_not-found/page.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_not-found/page.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/_not-found/page.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/api/ebook/free/route.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/ebook/free/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/api/health/route.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/health/route.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/api/health/route.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/claim/[slug]/page.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/claim/[slug]/page.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/claim/[slug]/page.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/library/page.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/library/page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/page.js",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/page.js"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/page.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/signin/page.js",
+          "kind": "require-call",
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/.next/server/app/signin/page.js"
         }
       ],
       "format": "cjs"
@@ -5527,7 +6034,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/pages-turbo.runtime.prod.js": {
-      "bytes": 119703,
+      "bytes": 119723,
       "imports": [
         {
           "path": "url",
@@ -5617,7 +6124,7 @@
         {
           "path": ".open-next/server-functions/default/cache.cjs",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
         },
         {
           "path": ".open-next/server-functions/default/node_modules/react/jsx-runtime.js",
@@ -5828,7 +6335,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/next-server.js": {
-      "bytes": 52557,
+      "bytes": 52597,
       "imports": [
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/server/node-environment.js",
@@ -6138,12 +6645,12 @@
         {
           "path": ".open-next/server-functions/default/composable-cache.cjs",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/composable-cache.cjs"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/composable-cache.cjs"
         },
         {
           "path": ".open-next/server-functions/default/cache.cjs",
           "kind": "require-call",
-          "original": "/workspaces/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
+          "original": "/home/runner/work/ILF_Ebook_App/ILF_Ebook_App/.open-next/server-functions/default/cache.cjs"
         },
         {
           "path": ".open-next/server-functions/default/node_modules/next/dist/experimental/testmode/server.js",
@@ -6159,7 +6666,7 @@
       "format": "esm"
     },
     ".open-next/server-functions/default/index.mjs": {
-      "bytes": 82108,
+      "bytes": 83236,
       "imports": [
         {
           "path": "node:module",
@@ -6444,6 +6951,11 @@
           "external": true
         },
         {
+          "path": "crypto",
+          "kind": "require-call",
+          "external": true
+        },
+        {
           "path": "url",
           "kind": "require-call",
           "external": true
@@ -6465,6 +6977,21 @@
         },
         {
           "path": "node:zlib",
+          "kind": "require-call",
+          "external": true
+        },
+        {
+          "path": "path",
+          "kind": "require-call",
+          "external": true
+        },
+        {
+          "path": "path",
+          "kind": "require-call",
+          "external": true
+        },
+        {
+          "path": "crypto",
           "kind": "require-call",
           "external": true
         },
@@ -7396,34 +7923,37 @@
           "bytesInOutput": 586
         },
         ".open-next/server-functions/default/.next/server/app/page_client-reference-manifest.js": {
-          "bytesInOutput": 5891
+          "bytesInOutput": 6333
+        },
+        ".open-next/server-functions/default/.next/server/app/signin/page_client-reference-manifest.js": {
+          "bytesInOutput": 7130
+        },
+        ".open-next/server-functions/default/.next/server/app/library/page_client-reference-manifest.js": {
+          "bytesInOutput": 6350
         },
         ".open-next/server-functions/default/.next/server/app/_not-found/page_client-reference-manifest.js": {
-          "bytesInOutput": 5760
+          "bytesInOutput": 6310
         },
         ".open-next/server-functions/default/.next/server/app/_global-error/page_client-reference-manifest.js": {
           "bytesInOutput": 5800
         },
         ".open-next/server-functions/default/.next/server/app/claim/[slug]/page_client-reference-manifest.js": {
-          "bytesInOutput": 6591
+          "bytesInOutput": 7212
         },
         ".open-next/server-functions/default/.next/server/app/api/health/route_client-reference-manifest.js": {
           "bytesInOutput": 461
         },
-        ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-          "bytesInOutput": 13467
+        ".open-next/server-functions/default/.next/server/app/api/ebook/free/route_client-reference-manifest.js": {
+          "bytesInOutput": 470
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__11fa4345._.js": {
-          "bytesInOutput": 1227
+        ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route_client-reference-manifest.js": {
+          "bytesInOutput": 486
+        },
+        ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
+          "bytesInOutput": 15306
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__15600e29._.js": {
           "bytesInOutput": 981
-        },
-        ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js": {
-          "bytesInOutput": 538
-        },
-        ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js": {
-          "bytesInOutput": 516
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/app-render/action-async-storage-instance.js": {
           "bytesInOutput": 501
@@ -7476,26 +8006,32 @@
         ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js": {
           "bytesInOutput": 564963
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1969c372._.js": {
-          "bytesInOutput": 3222
+        ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage-instance.js": {
+          "bytesInOutput": 538
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__61663317._.js": {
-          "bytesInOutput": 1832
+        ".open-next/server-functions/default/node_modules/next/dist/server/app-render/dynamic-access-async-storage.external.js": {
+          "bytesInOutput": 516
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__5e9a82c4._.js": {
+          "bytesInOutput": 7117
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__655f8d11._.js": {
           "bytesInOutput": 105316
         },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__a9975ec6._.js": {
+          "bytesInOutput": 9075
+        },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_554ec2bf.js": {
           "bytesInOutput": 272
         },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_27457240._.js": {
+          "bytesInOutput": 47154
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_2e5d1b2c._.js": {
+          "bytesInOutput": 51082
+        },
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_4b63a0e1._.js": {
           "bytesInOutput": 21832
-        },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_77ec7569._.js": {
-          "bytesInOutput": 56363
-        },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_82db42d6._.js": {
-          "bytesInOutput": 47330
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_9774470f._.js": {
           "bytesInOutput": 2642
@@ -7506,6 +8042,12 @@
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_65a7265e.js": {
           "bytesInOutput": 17671
         },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/src_app_541b5aeb._.js": {
+          "bytesInOutput": 1539
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0389df27._.js": {
+          "bytesInOutput": 3398
+        },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b9356576._.js": {
           "bytesInOutput": 1994
         },
@@ -7515,26 +8057,41 @@
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_08570d7f._.js": {
           "bytesInOutput": 17245
         },
-        ".open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_a6d89067._.js": {
-          "bytesInOutput": 977
+        ".open-next/server-functions/default/.next/server/chunks/[externals]__9dc52a3c._.js": {
+          "bytesInOutput": 1162
         },
         ".open-next/server-functions/default/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.prod.js": {
           "bytesInOutput": 161573
         },
-        ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__eff3d94a._.js": {
-          "bytesInOutput": 155763
+        ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f408c708._.js": {
+          "bytesInOutput": 151484
+        },
+        ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_auth_[___nextauth]_route_actions_1c865db8.js": {
+          "bytesInOutput": 290
+        },
+        ".open-next/server-functions/default/.next/server/chunks/node_modules_next_720d9a07._.js": {
+          "bytesInOutput": 206128
+        },
+        ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__f4ee13ef._.js": {
+          "bytesInOutput": 7359
+        },
+        ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_ebook_free_route_actions_620f6141.js": {
+          "bytesInOutput": 279
+        },
+        ".open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__2fb0ef71._.js": {
+          "bytesInOutput": 7170
         },
         ".open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_api_health_route_actions_da3433c4.js": {
           "bytesInOutput": 270
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__2e0e3130._.js": {
-          "bytesInOutput": 3493
+          "bytesInOutput": 3562
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__8df684dd._.js": {
-          "bytesInOutput": 1467
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__65c43370._.js": {
+          "bytesInOutput": 6752
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__d143f79e._.js": {
-          "bytesInOutput": 744
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__b7d2a798._.js": {
+          "bytesInOutput": 6233
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_150e49d7._.js": {
           "bytesInOutput": 17707
@@ -7542,8 +8099,11 @@
         ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_claim_[slug]_page_actions_7d59e393.js": {
           "bytesInOutput": 275
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_ea845e5f._.js": {
-          "bytesInOutput": 85461
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_127bfa28._.js": {
+          "bytesInOutput": 2202
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_852965c2._.js": {
+          "bytesInOutput": 83651
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js": {
           "bytesInOutput": 645
@@ -7551,41 +8111,83 @@
         ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_15817684.js": {
           "bytesInOutput": 801
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__cb16e16e._.js": {
-          "bytesInOutput": 460
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__92454ab6._.js": {
+          "bytesInOutput": 525
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_cee55a0b._.js": {
+          "bytesInOutput": 17655
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_e96131a8._.js": {
+          "bytesInOutput": 242897
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_library_page_actions_17cdbd80.js": {
+          "bytesInOutput": 267
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_73c2ca24._.js": {
+          "bytesInOutput": 29817
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__be8e2f9b._.js": {
+          "bytesInOutput": 586
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_c1309523._.js": {
           "bytesInOutput": 17588
         },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/_e86d78aa._.js": {
-          "bytesInOutput": 29850
-        },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_39d4fc33.js": {
           "bytesInOutput": 251
         },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_023b6025._.js": {
+          "bytesInOutput": 29817
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__305fbedf._.js": {
+          "bytesInOutput": 2709
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__33c39835._.js": {
+          "bytesInOutput": 1409
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_38cc1c1f._.js": {
+          "bytesInOutput": 17647
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_d6075905._.js": {
+          "bytesInOutput": 34681
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_signin_page_actions_f04a4e2c.js": {
+          "bytesInOutput": 263
+        },
         ".open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js": {
-          "bytesInOutput": 19268
+          "bytesInOutput": 21118
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-          "bytesInOutput": 19283
+          "bytesInOutput": 21133
         },
         ".open-next/server-functions/default/.next/server/app/_global-error/page.js": {
           "bytesInOutput": 713
         },
         ".open-next/server-functions/default/.next/server/app/_not-found/page.js": {
-          "bytesInOutput": 969
+          "bytesInOutput": 955
+        },
+        ".open-next/server-functions/default/.next/server/app/api/auth/[...nextauth]/route.js": {
+          "bytesInOutput": 526
+        },
+        ".open-next/server-functions/default/.next/server/app/api/ebook/free/route.js": {
+          "bytesInOutput": 461
         },
         ".open-next/server-functions/default/.next/server/app/api/health/route.js": {
-          "bytesInOutput": 448
+          "bytesInOutput": 449
         },
         ".open-next/server-functions/default/.next/server/app/claim/[slug]/page.js": {
-          "bytesInOutput": 1124
+          "bytesInOutput": 1110
+        },
+        ".open-next/server-functions/default/.next/server/app/library/page.js": {
+          "bytesInOutput": 1197
         },
         ".open-next/server-functions/default/.next/server/app/page.js": {
-          "bytesInOutput": 1125
+          "bytesInOutput": 1133
+        },
+        ".open-next/server-functions/default/.next/server/app/signin/page.js": {
+          "bytesInOutput": 1092
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-          "bytesInOutput": 3229
+          "bytesInOutput": 3602
         },
         ".open-next/server-functions/default/node_modules/next/dist/lib/wait.js": {
           "bytesInOutput": 341
@@ -7732,10 +8334,10 @@
           "bytesInOutput": 5074
         },
         ".open-next/server-functions/default/index.mjs": {
-          "bytesInOutput": 56640
+          "bytesInOutput": 57629
         }
       },
-      "bytes": 2617761
+      "bytes": 3229689
     }
   }
 }

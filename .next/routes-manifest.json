@@ -22,6 +22,14 @@
   },
   "dynamicRoutes": [
     {
+      "page": "/api/auth/[...nextauth]",
+      "regex": "^/api/auth/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPnextauth": "nxtPnextauth"
+      },
+      "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$"
+    },
+    {
       "page": "/claim/[slug]",
       "regex": "^/claim/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -50,10 +58,28 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/ebook/free",
+      "regex": "^/api/ebook/free(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/ebook/free(?:/)?$"
+    },
+    {
       "page": "/api/health",
       "regex": "^/api/health(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/health(?:/)?$"
+    },
+    {
+      "page": "/library",
+      "regex": "^/library(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/library(?:/)?$"
+    },
+    {
+      "page": "/signin",
+      "regex": "^/signin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/signin(?:/)?$"
     }
   ],
   "dataRoutes": [],
