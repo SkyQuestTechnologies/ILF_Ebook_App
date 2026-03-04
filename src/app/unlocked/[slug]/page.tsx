@@ -25,14 +25,14 @@ export default async function UnlockedPage({ params }: { params: Promise<{ slug?
         <p className="text-gray-600 mb-4">You now have access to the ebook.</p>
         <p className="text-xs text-gray-400 mb-6">Campaign: {slug}</p>
         <Link
-          href={`/download/${encodeURIComponent(slug)}`}
+          href={`/download?campaign=${encodeURIComponent(slug)}`}
           className="inline-block w-full px-6 py-3 mb-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
         >
           Download ebook
         </Link>
         <Link
           href={`/claim/${encodeURIComponent(slug)}`}
-          className="inline-block w-full px-6 py-3 mb-3 text-blue-600 rounded-lg font-semibold hover:underline transition"
+          className="inline-block w-full px-6 py-3 text-blue-600 rounded-lg font-semibold hover:underline transition"
         >
           Back to claim
         </Link>
