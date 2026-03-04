@@ -1,7 +1,7 @@
-import Link from "next/link";
-import dynamic from "next/dynamic";
 
-const AuthGate = dynamic(() => import("@/components/AuthGate"), { ssr: false });
+import Link from "next/link";
+import AuthGateClient from "../../components/AuthGateClient";
+
 
 export default async function UnlockedPage({ params }: { params: Promise<{ slug?: string }> }) {
   const { slug } = await params;
@@ -22,7 +22,7 @@ export default async function UnlockedPage({ params }: { params: Promise<{ slug?
     );
   }
   return (
-    <AuthGate next={`/claim/${encodeURIComponent(slug)}`}>
+    <AuthGateClient campaignSlug={slug}>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
         <div className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full text-center">
           <h1 className="text-2xl font-bold mb-2">Unlocked</h1>
@@ -48,6 +48,6 @@ export default async function UnlockedPage({ params }: { params: Promise<{ slug?
           </Link>
         </div>
       </div>
-    </AuthGate>
+    </AuthGateClient>
   );
 }
