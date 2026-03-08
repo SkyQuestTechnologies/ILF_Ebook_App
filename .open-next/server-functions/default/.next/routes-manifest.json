@@ -28,6 +28,22 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/claim/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/download/[slug]",
+      "regex": "^/download/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/download/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/unlocked/[slug]",
+      "regex": "^/unlocked/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/unlocked/(?<nxtPslug>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -50,10 +66,22 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/auth/login",
+      "regex": "^/api/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/login(?:/)?$"
+    },
+    {
       "page": "/api/health",
       "regex": "^/api/health(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/health(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
     }
   ],
   "dataRoutes": [],

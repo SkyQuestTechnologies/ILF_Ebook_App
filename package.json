@@ -2,20 +2,23 @@
 	"name": "ifl-ebook-app",
 	"version": "0.1.0",
 	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"dev:safe": "bash scripts/dev-safe.sh",
-		"build": "next build",
-		"build:cf": "opennextjs-cloudflare build",
-		"deploy": "wrangler deploy",
-		"deploy:cf": "CI=1 wrangler deploy",
-		"whoami:cf": "CI=1 wrangler whoami",
-		"start": "next start",
-		"lint": "next lint",
-		"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+	"engines": {
+		"node": ">=20 <21"
 	},
+	"scripts": {
+			"dev": "next dev",
+			"dev:safe": "bash scripts/dev-safe.sh",
+			"build": "next build",
+			"build:cf": "opennextjs-cloudflare build",
+			"deploy": "npm run build:cf && wrangler deploy",
+			"deploy:cf": "CI=1 wrangler deploy",
+			"whoami:cf": "CI=1 wrangler whoami",
+			"start": "next start",
+			"lint": "next lint",
+			"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+			"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+			"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+		},
 	"dependencies": {
 		"@opennextjs/cloudflare": "^1.17.1",
 		"next": "16.1.5",
