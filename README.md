@@ -39,13 +39,18 @@ This script is safe and idempotent: you can run it multiple times without risk o
 
 ### Non-Interactive Deploy
 
-To deploy without prompts:
+
+
+**Production Deploy (Cloudflare Workers + OpenNext):**
 
 ```bash
-npm run deploy:cf
-# or
-CI=1 wrangler deploy
+npm run deploy
 ```
+
+This will build and deploy the worker and static assets correctly.
+
+**Do NOT use `wrangler deploy` directly.**
+It will NOT serve static assets correctly for OpenNext projects.
 
 To validate authentication:
 
