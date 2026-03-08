@@ -10,13 +10,13 @@
 			"dev:safe": "bash scripts/dev-safe.sh",
 			"build": "next build",
 			"build:cf": "opennextjs-cloudflare build",
-			"deploy": "npm run build:cf && wrangler deploy",
-			"deploy:cf": "CI=1 wrangler deploy",
+			"deploy": "opennextjs-cloudflare deploy",
+			"deploy:cf": "CI=1 opennextjs-cloudflare deploy",
 			"whoami:cf": "CI=1 wrangler whoami",
 			"start": "next start",
 			"lint": "next lint",
-			"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-			"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+			"upload": "opennextjs-cloudflare upload",
+			"preview": "opennextjs-cloudflare preview",
 			"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
 		},
 	"dependencies": {

@@ -13,18 +13,20 @@ export type SessionClaims = {
 
 // 2) getSessionSecret()
 // Returns the secret used to sign tokens.
-// Falls back to a dev-only value if not set.
+// Throws if not set in production, but only when called (not at import time).
 export function getSessionSecret(): string {
-  // WARNING: This fallback is for development only. Set ILF_SESSION_SECRET in production!
-  // process.env is not available on Cloudflare Workers/Edge runtime.
-  // Use globalThis.ILF_SESSION_SECRET if set, else fallback.
+  let secret: string | undefined = undefined;
   if (typeof process !== "undefined" && process.env && process.env.ILF_SESSION_SECRET) {
-    return process.env.ILF_SESSION_SECRET;
+    secret = process.env.ILF_SESSION_SECRET;
+  } else if (typeof globalThis !== "undefined" && (globalThis as any).ILF_SESSION_SECRET) {
+    secret = (globalThis as any).ILF_SESSION_SECRET;
+  } else if (typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development") {
+    secret = "dev-only-secret-change-me";
   }
-  if (typeof globalThis !== "undefined" && (globalThis as any).ILF_SESSION_SECRET) {
-    return (globalThis as any).ILF_SESSION_SECRET;
+  if (!secret) {
+    throw new Error("ILF_SESSION_SECRET must be set in production");
   }
-  return "dev-only-secret-change-me";
+  return secret;
 }
 
 // 7) Utilities: base64url encode/decode (browser-compatible)
@@ -145,11 +147,4 @@ export function cookieClear(name: string): string {
   return `${name}=; Path=/; Max-Age=0; SameSite=Lax; HttpOnly; Secure`;
 }
 
-// Check if a real session secret is set (not the dev fallback)
-const realSecretFound =
-  (typeof process !== "undefined" && process.env && !!process.env.ILF_SESSION_SECRET) ||
-  (typeof globalThis !== "undefined" && !!(globalThis as any).ILF_SESSION_SECRET);
-
-if (process.env.NODE_ENV === "production" && !realSecretFound) {
-  throw new Error("ILF_SESSION_SECRET must be set in production");
-}
+// (Secret validation now happens only when getSessionSecret() is called, not at import time)
