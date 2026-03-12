@@ -35,6 +35,12 @@ export default async function UnlockedPage({ params }: { params: Promise<{ slug?
             Download ebook
           </Link>
           <Link
+            href="/login?next=/unlocked"
+            className="inline-block w-full px-6 py-3 mb-3 border border-blue-600 text-blue-600 bg-white rounded-lg font-semibold hover:bg-blue-50 transition"
+          >
+            Browse library
+          </Link>
+          <Link
             href={`/claim/${encodeURIComponent(slug)}`}
             className="inline-block w-full px-6 py-3 mb-3 text-blue-600 rounded-lg font-semibold hover:underline transition"
           >

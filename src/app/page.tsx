@@ -28,11 +28,10 @@ export default function HomePage() {
                 Claim ebook
               </Link>
               <Link
-                href="#how-it-works"
+                href="/library"
                 className="px-8 py-4 bg-white border border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition text-lg"
-                scroll={true}
               >
-                How it works
+                Browse library
               </Link>
             </div>
           </div>
