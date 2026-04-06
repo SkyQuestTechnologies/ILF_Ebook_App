@@ -1,6 +1,16 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navbar({ loggedIn }: { loggedIn?: boolean } = {}) {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/session")
+      .then((res) => res.json())
+      .then((data) => setSession(data.session));
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
@@ -26,7 +36,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean } = {}) {
         </nav>
 
         <div className="flex items-center gap-3">
-          {loggedIn ? (
+          {session ? (
             <>
               <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">Profile</span>
               <button className="rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100">Sign out</button>

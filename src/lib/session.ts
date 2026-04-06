@@ -109,8 +109,6 @@ export async function verifySessionToken(
 
 // 5) cookieSerialize(name, value, options)
 
-// 5) cookieSerialize(name, value, options)
-
 export type CookieOptions = {
   httpOnly?: boolean; // default true
   secure?: boolean;   // default true
@@ -148,3 +146,29 @@ export function cookieClear(name: string): string {
 }
 
 // (Secret validation now happens only when getSessionSecret() is called, not at import time)
+
+import { cookies } from "next/headers";
+
+// Demo secret for signing (replace with env var in production)
+const SECRET = (process.env.SESSION_SECRET || "demo-secret");
+
+// Sign a session object and return a token
+export async function signSession(session: any) {
+  // Set issued at and expiry if not present
+  const now = Date.now();
+  if (!session.iat) session.iat = now;
+  if (!session.exp) session.exp = now + 86400000; // 1 day
+  return await createSessionToken(session);
+}
+
+// Verify a session token and return the payload or null
+export async function verifySession(token: string) {
+  return await verifySessionToken(token);
+}
+
+// Get session from cookies (server-side)
+export async function getSession() {
+  const cookie = cookies().get("session")?.value;
+  if (!cookie) return null;
+  return await verifySessionToken(cookie);
+}
