@@ -1,31 +1,36 @@
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
-export default function UnlockedPage() {
-  // Optionally, redirect to the main library
-  import { cookies } from "next/headers";
-  import { redirect } from "next/navigation";
-  import Link from "next/link";
+export default async function UnlockedPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-  export default function UnlockedPage({ params }: { params: { slug: string } }) {
-    if (params.slug !== "demo-client") {
-      return <div>Invalid unlocked page.</div>;
-    }
-    const session = cookies().get("session");
-    if (!session) {
-      redirect(`/login?next=/unlocked/demo-client`);
-    }
-    return (
-      <main className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold mb-4">Demo Ebook Unlocked!</h1>
-        <p className="mb-6">You can now download your sample ebook.</p>
-        <Link
-          href="/download/demo-client"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Download PDF
-        </Link>
-      </main>
-    );
+  const cookieStore = await cookies();
+  const session = cookieStore.get("ilf_session");
+
+  if (!session) {
+    redirect(`/login?next=/unlocked/${slug}`);
   }
-  return null;
+
+  return (
+    <main className="min-h-screen bg-neutral-50 flex items-center justify-center px-4">
+      <section className="w-full max-w-xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-lg">
+        <h1 className="text-2xl font-bold text-gray-900">Download Complete</h1>
+        <p className="mt-3 text-gray-600">
+          Your demo ebook has been downloaded successfully.
+        </p>
+
+        <Link
+          href="/library"
+          className="mt-6 inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+        >
+          Back to Library
+        </Link>
+      </section>
+    </main>
+  );
 }

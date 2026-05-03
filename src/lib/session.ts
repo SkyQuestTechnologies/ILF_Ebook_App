@@ -153,22 +153,37 @@ import { cookies } from "next/headers";
 const SECRET = (process.env.SESSION_SECRET || "demo-secret");
 
 // Sign a session object and return a token
-export async function signSession(session: any) {
+export async function signSession(session: {
+  userId: string;
+  email: string;
+  iat: number;
+  exp: number;
+}) {
   // Set issued at and expiry if not present
-  const now = Date.now();
+  const now = Math.floor(Date.now() / 1000);
   if (!session.iat) session.iat = now;
-  if (!session.exp) session.exp = now + 86400000; // 1 day
-  return await createSessionToken(session);
+  if (!session.exp) session.exp = now + 86400; // 1 day in seconds
+
+  // Ensure required fields for SessionClaims
+  const claims = {
+    sub: session.userId,
+    email: session.email,
+    unlocked: [],
+    iat: session.iat,
+    exp: session.exp,
+  };
+  return await createSessionToken(SECRET, claims);
 }
 
 // Verify a session token and return the payload or null
 export async function verifySession(token: string) {
-  return await verifySessionToken(token);
+  return await verifySessionToken(SECRET, token);
 }
 
 // Get session from cookies (server-side)
 export async function getSession() {
-  const cookie = cookies().get("session")?.value;
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("session")?.value;
   if (!cookie) return null;
-  return await verifySessionToken(cookie);
+  return await verifySessionToken(SECRET, cookie);
 }

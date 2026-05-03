@@ -94,7 +94,7 @@ function EbookCard({ ebook }: { ebook: typeof ebooks[0] }) {
 export default function UnlockedLibrary() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
-      <Navbar loggedIn />
+      <Navbar />
       <main className="flex-1 w-full max-w-5xl mx-auto px-2 sm:px-4 py-4">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>

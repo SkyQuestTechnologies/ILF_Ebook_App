@@ -1,8 +1,7 @@
 import { AutoDownload } from "@/components/AutoDownload";
-import FeaturedCarousel from "@/components/library/FeaturedCarousel";
 
+// Example book data (expand as needed)
 const books = [
-  // 30 demo books, mix of categories, free/paid, featured
   {
     slug: "school-visit",
     title: "School Visit Free Ebook",
@@ -22,7 +21,7 @@ const books = [
     free: true,
   },
   {
-    slug: "galactic-frontiers",
+    slug: "premium-sci-fi",
     title: "Galactic Frontiers",
     description: "A thrilling premium sci-fi adventure.",
     author: "A. Spacewriter",
@@ -31,7 +30,7 @@ const books = [
     free: false,
   },
   {
-    slug: "green-revolution",
+    slug: "premium-nonfiction",
     title: "The Green Revolution",
     description: "Insights into modern sustainability.",
     author: "Dr. Leaf",
@@ -40,7 +39,7 @@ const books = [
     free: false,
   },
   {
-    slug: "math-mastery",
+    slug: "premium-education",
     title: "Math Mastery",
     description: "Unlock your math potential.",
     author: "Prof. Numbers",
@@ -48,96 +47,10 @@ const books = [
     featured: true,
     free: false,
   },
-  {
-    slug: "career-boost",
-    title: "Career Boost",
-    description: "Strategies for career advancement.",
-    author: "C. Mentor",
-    category: "Career",
-    featured: false,
-    free: true,
-  },
-  {
-    slug: "financial-freedom",
-    title: "Financial Freedom",
-    description: "A guide to financial literacy for students.",
-    author: "M. Moneywise",
-    category: "Financial Literacy",
-    featured: true,
-    free: false,
-  },
-  {
-    slug: "entrepreneur-mindset",
-    title: "Entrepreneur Mindset",
-    description: "Think like an entrepreneur.",
-    author: "E. Startup",
-    category: "Entrepreneurship",
-    featured: false,
-    free: false,
-  },
-  {
-    slug: "student-success",
-    title: "Student Success",
-    description: "Habits of high-achieving students.",
-    author: "S. Achiever",
-    category: "Student Success",
-    featured: true,
-    free: true,
-  },
-  {
-    slug: "writing-wizard",
-    title: "Writing Wizard",
-    description: "Master the art of writing essays.",
-    author: "P. Penman",
-    category: "Education",
-    featured: false,
-    free: true,
-  },
-  // 20 more demo books
-  ...Array.from({ length: 20 }, (_, i) => {
-    const idx = i + 1;
-    const categories = [
-      "Fiction",
-      "Nonfiction",
-      "Education",
-      "Career",
-      "Financial Literacy",
-      "Entrepreneurship",
-      "Student Success",
-    ];
-    const cat = categories[idx % categories.length];
-    return {
-      slug: `demo-book-${idx}`,
-      title: `Demo Book Title ${idx}`,
-      description: `This is a sample description for demo book ${idx}.`,
-      author: `Author ${idx}`,
-      category: cat,
-      featured: idx % 7 === 0,
-      free: idx % 3 !== 0,
-    };
-  }),
-  // 30th book
-  {
-    slug: "ultimate-guide",
-    title: "The Ultimate Guide to Success",
-    description: "Your roadmap to personal and academic success.",
-    author: "A. Winner",
-    category: "Student Success",
-    featured: true,
-    free: false,
-  },
+  // ...add more books as needed
 ];
 
-const allCategories = [
-  "All",
-  "Fiction",
-  "Nonfiction",
-  "Education",
-  "Career",
-  "Financial Literacy",
-  "Entrepreneurship",
-  "Student Success",
-];
+const allCategories = ["All", "Fiction", "Nonfiction", "Education"];
 
 export default async function LibraryPage({
   searchParams,
@@ -148,6 +61,7 @@ export default async function LibraryPage({
   const downloadSlug = download || "";
 
   const featuredBooks = books.filter((b) => b.featured);
+  // For demo, show all books in All Titles
   const allBooks = books;
 
   return (
@@ -159,14 +73,13 @@ export default async function LibraryPage({
         <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
           {/* Left: Logo */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600">
-              <span className="text-white font-bold text-lg">ILF</span>
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100">
+              <span className="text-2xl">📚</span>
             </span>
             <span className="font-bold text-lg text-blue-900 tracking-tight">iFLEbook</span>
           </div>
           {/* Center: Links */}
           <div className="hidden md:flex gap-8 text-gray-700 font-medium">
-            <a href="/" className="hover:text-blue-700 transition">Home</a>
             <a href="#how" className="hover:text-blue-700 transition">How it works</a>
             <a href="#featured" className="hover:text-blue-700 transition">Featured</a>
             <a href="#about" className="hover:text-blue-700 transition">About</a>
@@ -224,7 +137,50 @@ export default async function LibraryPage({
           <h2 className="text-2xl font-bold text-gray-900">Featured Titles</h2>
           <a href="#all" className="text-blue-600 text-sm font-medium hover:underline">Show all</a>
         </div>
-        <FeaturedCarousel books={featuredBooks.slice(0, 10)} />
+        <div className="overflow-x-auto pb-2">
+          <div className="flex gap-6 min-w-[700px]">
+            {featuredBooks.length === 0 ? (
+              <div className="text-gray-400 text-lg py-8">No featured books yet</div>
+            ) : (
+              featuredBooks.slice(0, 5).map((book) => (
+                <div
+                  key={book.slug}
+                  className="flex-shrink-0 w-[260px] bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 transform hover:scale-105"
+                >
+                  <div className="h-[210px] bg-blue-50 rounded-t-2xl flex items-center justify-center relative">
+                    <span className="text-5xl">📘</span>
+                    {book.featured && (
+                      <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-yellow-400 text-xs font-bold text-white shadow">Featured</span>
+                    )}
+                  </div>
+                  <div className="p-5 flex flex-col gap-2">
+                    <div className="flex gap-2 items-center">
+                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">{book.category}</span>
+                      {book.free ? (
+                        <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Free</span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">Premium</span>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900">{book.title}</h3>
+                    <div className="text-sm text-gray-500">{book.author}</div>
+                    <p className="text-sm text-gray-500">{book.description}</p>
+                    <a
+                      href={`/download/${book.slug}`}
+                      className={`mt-3 w-full inline-block text-center rounded-lg px-4 py-2 font-medium transition duration-200 ${
+                        book.free
+                          ? "bg-green-600 text-white hover:bg-green-700"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                      }`}
+                    >
+                      {book.free ? "Download Free" : "Buy Now"}
+                    </a>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </section>
 
       {/* All Titles */}
@@ -262,7 +218,11 @@ export default async function LibraryPage({
                   <p className="text-sm text-gray-500">{book.description}</p>
                   <a
                     href={`/download/${book.slug}`}
-                    className="mt-3 w-full inline-block text-center rounded-lg px-4 py-2 font-medium transition duration-200 bg-blue-600 text-white hover:bg-blue-700"
+                    className={`mt-3 w-full inline-block text-center rounded-lg px-4 py-2 font-medium transition duration-200 ${
+                      book.free
+                        ? "bg-green-600 text-white hover:bg-green-700"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
                   >
                     {book.free ? "Download Free" : "Buy Now"}
                   </a>

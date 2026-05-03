@@ -1,66 +1,65 @@
-"use client";
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    next?: string;
+    download?: string;
+    error?: string;
+  }>;
+}) {
+  const params = await searchParams;
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-
-export default function LoginPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/library";
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const res = await fetch("/api/session", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (res.ok) {
-      router.replace(next);
-    } else {
-      setError("Login failed");
-    }
-  }
+  const next = params.next || "/library";
+  const download = params.download || "";
+  const hasInvalidEmailError = params.error === "invalid_email";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 w-full max-w-lg p-8 sm:p-10 flex flex-col items-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign in</h1>
-        <p className="text-gray-600 mb-6 text-center text-sm max-w-xs">Access your ebooks and manage your library account.</p>
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-          <input
-            type="email"
-            required
-            placeholder="Email address"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-400"
-          />
+    <main className="min-h-screen bg-white flex items-center justify-center px-6">
+      <section className="w-full max-w-md rounded-3xl border border-neutral-200 bg-white p-8 shadow-sm">
+        <h1 className="text-3xl font-bold text-neutral-950">
+          Continue to Download
+        </h1>
+
+        <p className="mt-3 text-sm text-neutral-600">
+          Enter your email to unlock your free ebook.
+        </p>
+
+        <form action="/api/auth/login" method="post" className="mt-8 space-y-5">
+          <input type="hidden" name="next" value={next} />
+          <input type="hidden" name="download" value={download} />
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-neutral-800"
+            >
+              Email address
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950"
+            />
+          </div>
+
+          {hasInvalidEmailError && (
+            <p className="text-sm font-medium text-red-600">
+              Please enter a valid email address.
+            </p>
+          )}
+
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-base transition shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full rounded-xl bg-neutral-950 px-5 py-3 font-semibold text-white hover:bg-neutral-800"
           >
-            Continue with Email
+            Continue
           </button>
         </form>
-        <div className="w-full mt-6 flex flex-col gap-3">
-          <button
-            className="w-full rounded-lg bg-white border border-gray-300 text-gray-700 font-semibold py-3 text-base hover:bg-gray-50 transition shadow-sm disabled:opacity-60"
-            disabled
-          >
-            Continue with Google (demo)
-          </button>
-          <button
-            className="w-full rounded-lg bg-white border border-gray-300 text-gray-700 font-semibold py-3 text-base hover:bg-gray-50 transition shadow-sm disabled:opacity-60"
-            disabled
-          >
-            Continue with Microsoft (demo)
-          </button>
-        </div>
-        {error && <div className="text-red-600 mt-4 text-sm w-full text-center">{error}</div>}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
