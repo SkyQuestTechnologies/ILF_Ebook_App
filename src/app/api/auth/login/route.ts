@@ -1,66 +1,75 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSessionToken, cookieSerialize } from "@/lib/session";
 
 export const runtime = "edge";
 
+function isSafePath(path: string): boolean {
+  return path.startsWith("/") && !path.startsWith("//");
+}
+
+function base64UrlEncode(value: string): string {
+  return btoa(value)
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "");
+}
+
+function createDemoJwt(email: string): string {
+  const header = base64UrlEncode(JSON.stringify({ alg: "none", typ: "JWT" }));
+  const payload = base64UrlEncode(
+    JSON.stringify({ email, iat: Math.floor(Date.now() / 1000) })
+  );
+  return `${header}.${payload}.demo-signature`;
+}
+
 export async function POST(req: NextRequest) {
-  try {
-    const body = (await req.json()) as {
-      email?: string;
-      campaign?: string;
-      next?: string;
-    };
-    const { email, campaign, next } = body;
+  const formData = await req.formData();
 
-    // Improved email validation: must be string, contain @, and at least one dot after @
-    if (
-      typeof email !== "string" ||
-      !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)
-    ) {
-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
-    }
+  const username = String(formData.get("username") || "").trim();
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  const password = String(formData.get("password") || "").trim();
+  const nextRaw = String(formData.get("next") || "/library");
+  const download = String(formData.get("download") || "");
 
-    const now = Math.floor(Date.now() / 1000);
-    const exp = now + 7 * 24 * 60 * 60;
-    const claims = {
-      sub: crypto.randomUUID(),
-      email,
-      unlocked: campaign ? [campaign] : [],
-      iat: now,
-      exp,
-    };
+  const next = isSafePath(nextRaw) ? nextRaw : "/library";
 
-    // Harden secret handling: require secret in production
-    const secret = process.env.ILF_SESSION_SECRET;
-    const isDev = process.env.NODE_ENV !== "production";
-    if (!secret && !isDev) {
-      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
-    }
-    const sessionSecret = secret || "dev-only-insecure-secret-change-me";
+  const errorBase = new URL("/login", req.url);
+  errorBase.searchParams.set("next", next);
+  if (download) errorBase.searchParams.set("download", download);
 
-    const token = await createSessionToken(sessionSecret, claims);
-
-    // Set cookie security based on environment
-    const cookie = cookieSerialize("ilf_session", token, {
-      httpOnly: true,
-      secure: !isDev,
-      sameSite: "Lax",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60,
-    });
-
-    // Safe redirect logic
-    let safeNext = "/";
-    if (typeof next === "string" && next.startsWith("/") && !next.startsWith("//")) {
-      safeNext = next;
-    } else if (campaign) {
-      safeNext = `/unlocked/${encodeURIComponent(campaign)}`;
-    }
-
-    const res = NextResponse.json({ ok: true, next: safeNext });
-    res.headers.set("Set-Cookie", cookie);
-    return res;
-  } catch {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  if (!username || !password) {
+    errorBase.searchParams.set("error", "missing_fields");
+    return NextResponse.redirect(errorBase);
   }
+
+  if (!email || !email.includes("@")) {
+    errorBase.searchParams.set("error", "invalid_email");
+    return NextResponse.redirect(errorBase);
+  }
+
+  const redirectUrl = new URL(next, req.url);
+  if (download) redirectUrl.searchParams.set("download", download);
+
+  const res = NextResponse.redirect(redirectUrl);
+
+  res.cookies.set({
+    name: "ilf_session",
+    value: createDemoJwt(email),
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  res.cookies.set({
+    name: "ilf_user",
+    value: JSON.stringify({ email, username }),
+    httpOnly: false,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  return res;
 }

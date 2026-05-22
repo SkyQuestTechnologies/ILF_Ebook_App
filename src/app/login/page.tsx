@@ -1,119 +1,85 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-// Next.js 16 App Router: use searchParams in the page signature
-type LoginPageProps = {
-  searchParams?: {
-    campaign?: string;
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
     next?: string;
-  };
-};
+    download?: string;
+    error?: string;
+  }>;
+}) {
+  const params = await searchParams;
 
-export default function LoginPage({ searchParams }: LoginPageProps) {
-  const campaign = typeof searchParams?.campaign === "string" ? searchParams.campaign : undefined;
-  const nextParam = typeof searchParams?.next === "string" ? searchParams.next : undefined;
-  return <LoginCard campaign={campaign} nextParam={nextParam} />;
-}
-
-function LoginCard({ campaign, nextParam }: { campaign?: string; nextParam?: string }) {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  function safeNext(next: string | undefined, campaign: string | undefined) {
-    if (next && next.startsWith("/") && !next.startsWith("//")) {
-      return next;
-    }
-    if (campaign) return `/unlocked/${encodeURIComponent(campaign)}`;
-    return "/";
-  }
-
-  async function handleEmailSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, campaign, next: nextParam }),
-      });
-      type LoginResponse = { error?: string; next?: string };
-      if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as LoginResponse;
-        setError(data.error ?? "Login failed");
-        setLoading(false);
-        return;
-      }
-      const data = (await res.json()) as LoginResponse;
-      router.push(data.next ?? safeNext(nextParam, campaign));
-    } catch (err) {
-      setError("Network error");
-      setLoading(false);
-    }
-  }
+  const next = params.next || "/library";
+  const download = params.download || "";
+  const error = params.error;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full flex flex-col items-center">
-        <div className="text-sm font-semibold text-blue-600 mb-2 tracking-wide uppercase">Claim your free ebook</div>
-        <h1 className="text-2xl font-bold mb-2">Sign in to continue</h1>
-        <p className="text-gray-600 mb-6 text-center">
-          Use your school, event, or personal email to unlock your ebook. More sign-in options are coming soon.
-        </p>
-        <div className="w-full flex flex-col gap-3 mb-4">
-          <button
-            className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-white border border-gray-300 text-gray-800 rounded-lg font-semibold shadow-sm hover:bg-gray-100 transition disabled:opacity-60 disabled:cursor-not-allowed"
-            disabled
-            aria-disabled="true"
-          >
-            <span className="inline-block w-5 h-5 bg-gray-200 rounded-full" />
-            Continue with Google
-          </button>
-          <button
-            className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-white border border-gray-300 text-gray-800 rounded-lg font-semibold shadow-sm hover:bg-gray-100 transition disabled:opacity-60 disabled:cursor-not-allowed"
-            disabled
-            aria-disabled="true"
-          >
-            <span className="inline-block w-5 h-5 bg-gray-200 rounded-full" />
-            Continue with Microsoft
-          </button>
-        </div>
-        <div className="flex items-center w-full mb-4">
-          <div className="flex-grow h-px bg-gray-200" />
-          <span className="mx-3 text-gray-400 text-xs font-medium">or continue with email</span>
-          <div className="flex-grow h-px bg-gray-200" />
-        </div>
-        <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2 w-full mb-2">
-          <input
-            type="email"
-            required
-            placeholder="you@example.com"
-            className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            disabled={loading}
-            autoComplete="email"
-          />
+    <main className="min-h-screen bg-white flex items-center justify-center px-6">
+      <section className="w-full max-w-md rounded-3xl border border-neutral-200 bg-white p-8 shadow-sm">
+        <h1 className="text-3xl font-bold text-neutral-950">Welcome back</h1>
+        <p className="mt-3 text-sm text-neutral-600">Sign in to access your ebooks.</p>
+
+        <form action="/api/auth/login" method="post" className="mt-8 space-y-5">
+          <input type="hidden" name="next" value={next} />
+          <input type="hidden" name="download" value={download} />
+
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-neutral-800">
+              Full Name
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              placeholder="John Doe"
+              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-neutral-800">
+              Email address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-neutral-800">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              placeholder="••••••••"
+              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+            />
+          </div>
+
+          {error === "invalid_email" && (
+            <p className="text-sm font-medium text-red-600">Please enter a valid email address.</p>
+          )}
+          {error === "missing_fields" && (
+            <p className="text-sm font-medium text-red-600">All fields are required.</p>
+          )}
+
           <button
             type="submit"
-            className="bg-blue-600 text-white rounded px-3 py-2 font-semibold hover:bg-blue-700 transition"
-            disabled={loading}
+            className="w-full rounded-xl bg-neutral-950 px-5 py-3 font-semibold text-white hover:bg-neutral-800 transition"
           >
-            {loading ? "Logging in..." : "Continue with Email"}
+            Sign in
           </button>
-          {error && <div className="text-red-600 text-sm">{error}</div>}
         </form>
-        <div className="text-xs text-gray-500 mb-1 text-center">
-          You’ll be redirected back to your ebook after signing in.
-        </div>
-        <div className="text-xs text-gray-400 text-center mt-2">
-          Google and Microsoft sign-in will be available soon.
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
