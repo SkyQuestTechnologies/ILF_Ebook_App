@@ -3,26 +3,10 @@ import Footer from "./components/Footer";
 import Link from "next/link";
 import SplitHeadline from "@/components/SplitHeadline";
 import RevealGroup from "@/components/RevealGroup";
+import { books } from "@/lib/books";
 
 export default function HomePage() {
-    const featuredBooks = [
-        {
-            title: "Atomic Habits",
-            author: "James Clear",
-            slug: "student-success",
-        },
-        { title: "Deep Work", author: "Cal Newport", slug: "career-boost" },
-        {
-            title: "The Psychology of Money",
-            author: "Morgan Housel",
-            slug: "financial-freedom",
-        },
-        {
-            title: "The Psychology of Money",
-            author: "Morgan Housel",
-            slug: "financial-freedom",
-        },
-    ];
+    const featuredBooks = books.filter((b) => b.featured).slice(0, 4);
     return (
         <div className="min-h-screen flex flex-col bg-white antialiased">
             <Navbar />
@@ -311,8 +295,8 @@ export default function HomePage() {
                     >
                         {featuredBooks.map((book) => (
                             <Link
-                                key={book.title}
-                                href={`/paywall/${book.slug}`}
+                                key={book.slug}
+                                href={book.free ? `/download/${book.slug}` : `/paywall/${book.slug}`}
                                 className="group rounded-3xl border border-slate-200 bg-white p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200"
                             >
                                 <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 transition-transform duration-500 group-hover:scale-[1.02]" />
