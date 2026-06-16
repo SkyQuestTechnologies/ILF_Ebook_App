@@ -7,7 +7,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div>
                         <h3 className="text-lg font-semibold text-slate-900">
-                            iFLEbook
+                            iLFEbook
                         </h3>
                         <p className="mt-2 text-sm text-slate-500 max-w-sm">
                             Free digital learning platform empowering students

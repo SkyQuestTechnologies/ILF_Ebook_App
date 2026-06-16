@@ -11,7 +11,7 @@ export default function Footer() {
                 ILF
               </span>
               <span className="font-semibold tracking-tight text-gray-900">
-                iFLEbook
+                iLFEbook
               </span>
             </div>
             <p className="mt-3 max-w-sm text-sm text-gray-600">

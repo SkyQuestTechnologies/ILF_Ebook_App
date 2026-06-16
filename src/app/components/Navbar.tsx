@@ -51,7 +51,7 @@ export default function Navbar() {
             ILF
           </span>
           <span className="font-semibold tracking-tight text-gray-900 text-sm">
-            iFLEbook
+            iLFEbook
           </span>
         </Link>
 

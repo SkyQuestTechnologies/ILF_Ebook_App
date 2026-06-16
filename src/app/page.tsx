@@ -328,7 +328,7 @@ export default function HomePage() {
                         {/* LEFT SIDE */}
                         <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 mb-4">
-                                IFLEBOOK
+                                ILFEBOOK
                             </p>
 
                             <SplitHeadline
@@ -340,7 +340,7 @@ export default function HomePage() {
 
                             <RevealGroup start="top 85%">
                                 <p className="text-base md:text-lg text-slate-500 leading-relaxed mt-5 max-w-xl">
-                                    iFLEbook is dedicated to making quality
+                                    iLFEbook is dedicated to making quality
                                     educational resources accessible to every
                                     student. Our mission is to empower learners
                                     by providing free, easy access to digital

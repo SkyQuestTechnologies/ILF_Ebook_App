@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "iFLEbook — Free Ebooks for Students",
+	title: "iLFEbook — Free Ebooks for Students",
 	description: "Empower your learning journey with exclusive access to digital books. Claim your free ebook in seconds.",
 };
 
