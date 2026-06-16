@@ -76,7 +76,7 @@ export default async function LibraryPage({
             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100">
               <span className="text-2xl">📚</span>
             </span>
-            <span className="font-bold text-lg text-blue-900 tracking-tight">iFLEbook</span>
+            <span className="font-bold text-lg text-blue-900 tracking-tight">iLFEbook</span>
           </div>
           {/* Center: Links */}
           <div className="hidden md:flex gap-8 text-gray-700 font-medium">

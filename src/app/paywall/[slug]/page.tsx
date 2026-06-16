@@ -1,69 +1,103 @@
 import { notFound } from "next/navigation";
 import PaywallActions from "@/components/paywall/PaywallActions";
+import { books } from "@/lib/books";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
-// Demo book data fallback (since booksData is not exported as default)
-const demoTitles = [
-  "Money Habits for Teens", "Startup Blueprint", "Mindset Mastery", "Career Kickstart Guide", "Modern Financial Literacy",
-  "The Art of Focus", "Digital Nomad Life", "Science for Curious Minds", "The Lost Expedition", "Creative Writing Toolkit",
-  "Healthy Living Essentials", "The Innovator's Playbook", "Everyday Leadership", "The Secret Gardeners", "AI for Everyone",
-  "The Great Escape", "Productivity Hacks", "The World of Numbers", "History Unveiled", "The Coding Journey",
-  "The Art of Negotiation", "Eco Warriors", "The Storyteller's Path", "Physics in Motion", "The Mindful Parent",
-  "The Startup CEO", "The Young Investor", "The Explorer's Diary", "The Science of Sleep", "The Social Media Guide",
-  "The Modern Philosopher", "The Wellness Project", "The Digital Classroom", "The Fictional Reality", "The Nonfiction Narrative",
-  "The Education Revolution", "The Book of Curiosity", "The Learning Curve", "The Adventure Begins", "The Knowledge Seeker",
-  "The Free Thinker", "The Paid Solution", "The Featured Five", "The Balanced Life", "The Growth Mindset",
-  "The Reading Habit", "The Future is Now", "The Classic Collection", "The New Age", "The Essential Guide"
-];
+export default async function PaywallPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+    const book = books.find((b) => b.slug === slug && !b.free);
+    if (!book) return notFound();
 
-const demoAuthors = [
-  "Jane Doe", "John Smith", "Alex Lee", "Sam Green", "Marie Curie", "Ava Carter", "Liam Brown", "Olivia Wilson", "Noah Miller", "Emma Davis",
-  "Mason Clark", "Sophia Lewis", "Logan Walker", "Mia Hall", "Lucas Young", "Charlotte King", "Elijah Wright", "Amelia Scott", "James Turner", "Harper Adams",
-  "Benjamin Baker", "Evelyn Nelson", "Henry Perez", "Abigail Roberts", "Sebastian Campbell", "Ella Mitchell", "Jack Carter", "Grace Evans", "Daniel Edwards", "Chloe Rivera",
-  "Matthew Cooper", "Scarlett Morgan", "David Reed", "Victoria Cox", "Joseph Bailey", "Penelope Ward", "Samuel Brooks", "Layla Kelly", "Carter Sanders", "Zoey Price",
-  "Wyatt Bennett", "Lily Gray", "Julian Hughes", "Hannah Foster", "Levi Simmons", "Nora Butler", "Isaac Barnes", "Ellie Ross", "Gabriel Henderson", "Stella Patterson"
-];
+    const originalPrice = (book.price * 1.5).toFixed(2);
 
-function slugify(str: string): string {
-  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
+    return (
+        <>
+            <Navbar />
+            <main className="bg-white min-h-screen">
+                <div className="max-w-6xl mx-auto px-6 py-24">
+                    <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 md:p-12">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                            {/* Left — Visual */}
+                            <div className="bg-slate-50 rounded-2xl flex items-center justify-center p-12">
+                                <div className="aspect-[3/4] w-full max-w-[240px] relative">
+                                    <div className="absolute left-0 top-0 bottom-0 w-4 bg-indigo-800 rounded-l-md z-10" />
+                                    <div className="absolute left-4 top-0 right-0 bottom-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-r-2xl shadow-2xl flex flex-col justify-end p-6">
+                                        <div className="w-full space-y-1.5 mb-4">
+                                            <div className="h-1.5 w-3/4 bg-white/30 rounded" />
+                                            <div className="h-1.5 w-1/2 bg-white/20 rounded" />
+                                        </div>
+                                        <p className="text-white/80 text-xs font-medium tracking-wide text-center w-full">
+                                            {book.title}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
-const books = Array.from({ length: 50 }).map((_, i) => {
-  let category = ["Fiction", "Nonfiction", "Education"][i % 3];
-  let free = i < 20;
-  let featured = i < 5;
-  const title = demoTitles[i % demoTitles.length] + (i >= demoTitles.length ? ` Vol. ${Math.floor(i / demoTitles.length) + 1}` : "");
-  const author = demoAuthors[i % demoAuthors.length];
-  return {
-    slug: slugify(title),
-    title,
-    author,
-    category,
-    featured,
-    free,
-    cover: "",
-    price: 9.99,
-  };
-});
+                            {/* Right — Details */}
+                            <div className="flex flex-col justify-center">
+                                <span className="inline-block text-xs font-semibold tracking-widest text-blue-500 uppercase mb-3">
+                                    {book.category}
+                                </span>
+                                <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">
+                                    {book.title}
+                                </h1>
+                                <p className="text-sm uppercase tracking-wider text-slate-500 mb-6">
+                                    by {book.author}
+                                </p>
 
-export default async function PaywallPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const book = books.find((b) => b.slug === slug && !b.free);
-  if (!book) return notFound();
+                                <div className="flex items-baseline gap-3 mb-8">
+                                    <span className="text-3xl font-bold text-blue-600">
+                                        ${book.price.toFixed(2)}
+                                    </span>
+                                    <span className="text-lg text-slate-400 line-through">
+                                        ${originalPrice}
+                                    </span>
+                                </div>
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
-        <div className="h-32 w-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mb-4">
-          <span className="text-5xl text-blue-300">📘</span>
-        </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2 text-center">{book.title}</h1>
-        <div className="text-sm text-gray-600 mb-4">by {book.author}</div>
-        <div className="text-lg font-semibold text-blue-700 mb-2">${book.price.toFixed(2)}</div>
-        <div className="text-gray-700 mb-6 text-center">
-          Unlock this ebook and gain lifetime access. Enjoy exclusive content and support the author!
-        </div>
-        <PaywallActions slug={book.slug} title={book.title} price={book.price} />
-      </div>
-    </div>
-  );
+                                <p className="font-semibold text-slate-900 mb-3">
+                                    Description
+                                </p>
+                                <p className="text-slate-600 leading-relaxed text-sm mb-8">
+                                    {book.description}
+                                </p>
+
+                                <div className="border border-slate-200 rounded-xl p-6 bg-slate-50/50">
+                                    <div className="flex items-center gap-2 mb-5">
+                                        <svg
+                                            className="w-4 h-4 text-blue-600 shrink-0"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth={2.5}
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M4.5 12.75l6 6 9-13.5"
+                                            />
+                                        </svg>
+                                        <span className="text-sm font-medium text-slate-700">
+                                            Digital Download &mdash; Instant
+                                            Access
+                                        </span>
+                                    </div>
+                                    <PaywallActions
+                                        slug={book.slug}
+                                        title={book.title}
+                                        price={book.price}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <Footer />
+        </>
+    );
 }

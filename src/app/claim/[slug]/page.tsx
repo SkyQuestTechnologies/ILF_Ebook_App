@@ -3,15 +3,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function ClaimPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  if (slug !== "demo-client") {
-    return (
-      <main className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-xl font-bold">Invalid claim link.</h1>
-      </main>
-    );
-  }
+export default async function ClaimPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const cookieStore = await cookies();
   const session = cookieStore.get("ilf_session");
   if (!session) {

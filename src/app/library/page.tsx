@@ -1,143 +1,23 @@
 import { AutoDownload } from "@/components/AutoDownload";
 import FeaturedCarousel from "@/components/library/FeaturedCarousel";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import SplitHeadline from "@/components/SplitHeadline";
+import RevealGroup from "@/components/RevealGroup";
+import Link from "next/link";
+import { books } from "@/lib/books";
 
-const books = [
-  // 30 demo books, mix of categories, free/paid, featured
-  {
-    slug: "school-visit",
-    title: "School Visit Free Ebook",
-    description: "A free sample ebook for students and families.",
-    author: "ILF Team",
-    category: "Education",
-    featured: true,
-    free: true,
-  },
-  {
-    slug: "eco-warriors",
-    title: "Eco Warriors",
-    description: "A student-friendly ebook sample.",
-    author: "Jane Green",
-    category: "Fiction",
-    featured: false,
-    free: true,
-  },
-  {
-    slug: "galactic-frontiers",
-    title: "Galactic Frontiers",
-    description: "A thrilling premium sci-fi adventure.",
-    author: "A. Spacewriter",
-    category: "Fiction",
-    featured: true,
-    free: false,
-  },
-  {
-    slug: "green-revolution",
-    title: "The Green Revolution",
-    description: "Insights into modern sustainability.",
-    author: "Dr. Leaf",
-    category: "Nonfiction",
-    featured: false,
-    free: false,
-  },
-  {
-    slug: "math-mastery",
-    title: "Math Mastery",
-    description: "Unlock your math potential.",
-    author: "Prof. Numbers",
-    category: "Education",
-    featured: true,
-    free: false,
-  },
-  {
-    slug: "career-boost",
-    title: "Career Boost",
-    description: "Strategies for career advancement.",
-    author: "C. Mentor",
-    category: "Career",
-    featured: false,
-    free: true,
-  },
-  {
-    slug: "financial-freedom",
-    title: "Financial Freedom",
-    description: "A guide to financial literacy for students.",
-    author: "M. Moneywise",
-    category: "Financial Literacy",
-    featured: true,
-    free: false,
-  },
-  {
-    slug: "entrepreneur-mindset",
-    title: "Entrepreneur Mindset",
-    description: "Think like an entrepreneur.",
-    author: "E. Startup",
-    category: "Entrepreneurship",
-    featured: false,
-    free: false,
-  },
-  {
-    slug: "student-success",
-    title: "Student Success",
-    description: "Habits of high-achieving students.",
-    author: "S. Achiever",
-    category: "Student Success",
-    featured: true,
-    free: true,
-  },
-  {
-    slug: "writing-wizard",
-    title: "Writing Wizard",
-    description: "Master the art of writing essays.",
-    author: "P. Penman",
-    category: "Education",
-    featured: false,
-    free: true,
-  },
-  // 20 more demo books
-  ...Array.from({ length: 20 }, (_, i) => {
-    const idx = i + 1;
-    const categories = [
-      "Fiction",
-      "Nonfiction",
-      "Education",
-      "Career",
-      "Financial Literacy",
-      "Entrepreneurship",
-      "Student Success",
-    ];
-    const cat = categories[idx % categories.length];
-    return {
-      slug: `demo-book-${idx}`,
-      title: `Demo Book Title ${idx}`,
-      description: `This is a sample description for demo book ${idx}.`,
-      author: `Author ${idx}`,
-      category: cat,
-      featured: idx % 7 === 0,
-      free: idx % 3 !== 0,
-    };
-  }),
-  // 30th book
-  {
-    slug: "ultimate-guide",
-    title: "The Ultimate Guide to Success",
-    description: "Your roadmap to personal and academic success.",
-    author: "A. Winner",
-    category: "Student Success",
-    featured: true,
-    free: false,
-  },
-];
+const categoryGradients: Record<string, string> = {
+  Fiction:              "from-violet-400 to-purple-500",
+  Nonfiction:           "from-slate-400 to-slate-600",
+  Education:            "from-blue-400 to-indigo-500",
+  Career:               "from-emerald-400 to-teal-500",
+  "Financial Literacy": "from-amber-400 to-orange-500",
+  Entrepreneurship:     "from-rose-400 to-pink-500",
+  "Student Success":    "from-sky-400 to-blue-500",
+};
 
-const allCategories = [
-  "All",
-  "Fiction",
-  "Nonfiction",
-  "Education",
-  "Career",
-  "Financial Literacy",
-  "Entrepreneurship",
-  "Student Success",
-];
+const allCategories = ["All","Fiction","Nonfiction","Education","Career","Financial Literacy","Entrepreneurship","Student Success"];
 
 export default async function LibraryPage({
   searchParams,
@@ -146,132 +26,149 @@ export default async function LibraryPage({
 }) {
   const { download } = await searchParams;
   const downloadSlug = download || "";
-
   const featuredBooks = books.filter((b) => b.featured);
-  const allBooks = books;
 
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col bg-white antialiased">
+      <Navbar />
       <AutoDownload slug={downloadSlug} />
 
-      {/* Navbar */}
-      <nav className="w-full bg-white border-b border-gray-100">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-          {/* Left: Logo */}
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600">
-              <span className="text-white font-bold text-lg">ILF</span>
-            </span>
-            <span className="font-bold text-lg text-blue-900 tracking-tight">iFLEbook</span>
-          </div>
-          {/* Center: Links */}
-          <div className="hidden md:flex gap-8 text-gray-700 font-medium">
-            <a href="/" className="hover:text-blue-700 transition">Home</a>
-            <a href="#how" className="hover:text-blue-700 transition">How it works</a>
-            <a href="#featured" className="hover:text-blue-700 transition">Featured</a>
-            <a href="#about" className="hover:text-blue-700 transition">About</a>
-          </div>
-          {/* Right: Auth/Actions */}
-          <div className="flex items-center gap-4">
-            {/* Example: Show user email and sign out if logged in */}
-            {/* <span className="text-sm text-gray-700">user@email.com</span>
-            <button className="text-sm px-3 py-1 rounded border border-gray-200 bg-white hover:bg-gray-50 transition">Sign out</button> */}
-            <a
-              href="/claim/demo"
-              className="text-sm font-medium px-3 py-1 rounded bg-blue-50 text-blue-700 hover:bg-blue-100 transition"
+      <main className="flex-1">
+
+        {/* Hero */}
+        <section className="relative overflow-hidden border-b border-slate-200 bg-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.07),transparent_55%)] pointer-events-none" />
+          <div className="relative mx-auto max-w-4xl px-6 py-20 text-center">
+            <SplitHeadline
+              as="h1"
+              className="text-4xl md:text-6xl font-bold tracking-tighter text-slate-900 mb-6 leading-[1.1]"
+              triggerOnLoad
             >
-              Claim demo
-            </a>
-            <a
-              href="/partner"
-              className="text-sm font-medium px-3 py-1 rounded border border-blue-100 text-blue-700 hover:bg-blue-50 transition"
-            >
-              Partner with us
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="w-full bg-white">
-        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">Explore the Library</h1>
-          <p className="text-lg text-gray-500 mb-8">
-            Browse our collection of free and premium ebooks. Start reading today!
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <span className="px-4 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold">100+ Titles</span>
-            <span className="px-4 py-1 rounded-full bg-green-50 text-green-700 text-sm font-semibold">New Releases</span>
-            <span className="px-4 py-1 rounded-full bg-yellow-50 text-yellow-700 text-sm font-semibold">Curated Picks</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {allCategories.map((cat) => (
-              <button
-                key={cat}
-                className="px-4 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 text-sm font-medium hover:bg-blue-50 hover:text-blue-700 transition"
-                type="button"
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Titles */}
-      <section id="featured" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">Featured Titles</h2>
-          <a href="#all" className="text-blue-600 text-sm font-medium hover:underline">Show all</a>
-        </div>
-        <FeaturedCarousel books={featuredBooks.slice(0, 10)} />
-      </section>
-
-      {/* All Titles */}
-      <section id="all" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">All Titles</h2>
-        {allBooks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24">
-            <p className="text-gray-400 text-lg">No books available yet</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-            {allBooks.map((book) => (
-              <div
-                key={book.slug}
-                className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 transform hover:scale-105 flex flex-col"
-                style={{ width: "100%", maxWidth: 260 }}
-              >
-                <div className="h-[210px] bg-blue-50 rounded-t-2xl flex items-center justify-center relative">
-                  <span className="text-5xl">📘</span>
-                  {book.featured && (
-                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-yellow-400 text-xs font-bold text-white shadow">Featured</span>
-                  )}
-                </div>
-                <div className="flex-1 flex flex-col p-5 gap-2">
-                  <div className="flex gap-2 items-center">
-                    <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">{book.category}</span>
-                    {book.free ? (
-                      <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Free</span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">Premium</span>
-                    )}
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">{book.title}</h3>
-                  <div className="text-sm text-gray-500">{book.author}</div>
-                  <p className="text-sm text-gray-500">{book.description}</p>
-                  <a
-                    href={`/download/${book.slug}`}
-                    className="mt-3 w-full inline-block text-center rounded-lg px-4 py-2 font-medium transition duration-200 bg-blue-600 text-white hover:bg-blue-700"
-                  >
-                    {book.free ? "Download Free" : "Buy Now"}
-                  </a>
-                </div>
+              Explore the Library
+            </SplitHeadline>
+            <RevealGroup className="flex flex-col items-center" stagger={80} start="top 95%">
+              <p className="text-lg text-slate-500 max-w-xl mb-8 leading-relaxed">
+                Browse our collection of free and premium ebooks. Every title is curated for students.
+              </p>
+              {/* Stats pills */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {[
+                  { label: "100+ Titles",    color: "bg-blue-50 text-blue-700"   },
+                  { label: "New Releases",   color: "bg-emerald-50 text-emerald-700" },
+                  { label: "Curated Picks",  color: "bg-amber-50 text-amber-700"  },
+                ].map(({ label, color }) => (
+                  <span key={label} className={`px-4 py-1.5 rounded-full text-sm font-semibold ${color}`}>
+                    {label}
+                  </span>
+                ))}
               </div>
-            ))}
+              {/* Category filter */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {allCategories.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    className="px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600 text-sm font-medium hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-colors"
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </RevealGroup>
           </div>
-        )}
-      </section>
-    </main>
+        </section>
+
+        {/* Featured Titles */}
+        <section id="featured" className="border-b border-slate-100 bg-slate-50 px-6 py-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600 mb-3">
+                  Curated picks
+                </p>
+                <SplitHeadline as="h2" className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900">
+                  Featured Titles
+                </SplitHeadline>
+              </div>
+              <a href="#all" className="hidden text-sm font-semibold text-blue-600 hover:text-blue-700 md:block shrink-0">
+                Show all →
+              </a>
+            </div>
+            <FeaturedCarousel books={featuredBooks.slice(0, 10)} />
+          </div>
+        </section>
+
+        {/* All Titles */}
+        <section id="all" className="px-6 py-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center justify-between mb-10">
+              <SplitHeadline as="h2" className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900">
+                All Titles
+              </SplitHeadline>
+              <span className="text-sm text-slate-400">{books.length} books</span>
+            </div>
+
+            {books.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-24">
+                <p className="text-slate-400 text-lg">No books available yet</p>
+              </div>
+            ) : (
+              <RevealGroup
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+                stagger={30}
+              >
+                {books.map((book) => {
+                  const gradient = categoryGradients[book.category] ?? "from-blue-400 to-indigo-500";
+                  const href = book.free ? `/download/${book.slug}` : `/paywall/${book.slug}`;
+                  return (
+                    <Link
+                      key={book.slug}
+                      href={href}
+                      className="group flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/10 hover:border-blue-200"
+                    >
+                      {/* Book cover */}
+                      <div className={`w-[80px] h-[110px] rounded-xl flex-shrink-0 bg-gradient-to-br ${gradient} ring-1 ring-black/5 shadow-sm transition-transform duration-300 group-hover:scale-105`} />
+
+                      {/* Content */}
+                      <div className="flex-1 flex flex-col min-w-0">
+                        {/* Badges */}
+                        <div className="flex gap-1.5 flex-wrap mb-2">
+                          <span className="text-[10px] uppercase tracking-wider font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                            {book.category}
+                          </span>
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${book.free ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-600"}`}>
+                            {book.free ? "Free" : "Premium"}
+                          </span>
+                          {book.featured && (
+                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
+                              Featured
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className="text-sm font-semibold tracking-tight text-slate-900 leading-snug line-clamp-2">
+                          {book.title}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">by {book.author}</p>
+                        <p className="text-xs text-slate-400 leading-relaxed mt-1.5 line-clamp-2 flex-1">
+                          {book.description}
+                        </p>
+
+                        <div className="mt-auto pt-2 flex items-center gap-1 text-xs font-semibold text-slate-400 transition-all duration-200 group-hover:text-blue-600">
+                          <span>{book.free ? "Download Free" : "View Book"}</span>
+                          <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </RevealGroup>
+            )}
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </div>
   );
 }
