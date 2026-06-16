@@ -4,11 +4,9 @@ node_modules/
 # Next.js
 .next/
 out/
-next-env.d.ts
 
 # OpenNext / Cloudflare / Wrangler
 .open-next/
-.wrangler/
 .wrangler/
 dist/
 worker/
