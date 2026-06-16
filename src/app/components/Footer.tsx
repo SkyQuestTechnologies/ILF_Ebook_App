@@ -10,8 +10,7 @@ export default function Footer() {
                             iLFEbook
                         </h3>
                         <p className="mt-2 text-sm text-slate-500 max-w-sm">
-                            Free digital learning platform empowering students
-                            through accessible educational ebooks.
+                            Free books. Real authors. Reading made for the way you actually live.
                         </p>
                     </div>
 
@@ -61,7 +60,7 @@ export default function Footer() {
                 {/* BOTTOM ROW */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-sm text-slate-500">
-                        © {new Date().getFullYear()} iFLEbook. All rights
+                        © {new Date().getFullYear()} iLFEbook. All rights
                         reserved.
                     </p>
 

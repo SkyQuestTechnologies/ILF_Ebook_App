@@ -35,9 +35,8 @@ export default function HomePage() {
                             start="top 95%"
                         >
                             <p className="max-w-xl text-lg leading-8 text-slate-500">
-                                Discover free educational books through
-                                beautifully designed digital experiences built
-                                for modern students.
+                                Free ebooks from real, independent authors — brought to you by the Independent Literacy Foundation. 
+                                Grab one in seconds and build a library you'll actually want to open.
                             </p>
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                                 <Link
@@ -164,7 +163,7 @@ export default function HomePage() {
                         How it works
                     </SplitHeadline>
                     <p className="text-slate-500 text-center mb-16 max-w-lg">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.
+                        Free books, no catch. From scan to reading in under a minute — here's how.
                     </p>
                     <RevealGroup
                         className="flex flex-col gap-24 md:gap-32 w-full"
@@ -195,7 +194,7 @@ export default function HomePage() {
                                     Scan QR
                                 </h3>
                                 <p className="text-slate-500 leading-relaxed max-w-sm">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. We know your needs are more than just a form — committed to providing the best experience.
+                                    Free books, no catch. From scan to reading in under a minute — here's how..
                                 </p>
                             </div>
                         </div>
@@ -227,7 +226,7 @@ export default function HomePage() {
                                     Sign in
                                 </h3>
                                 <p className="text-slate-500 leading-relaxed max-w-sm">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. It&apos;s the fast, easy way to verify your identity and access your content anytime, anywhere.
+                                    A quick sign-in saves your books and your place to you. Close the app, switch phones, come back next week — your library and your bookmarks are right where you left them.
                                 </p>
                             </div>
                         </div>
@@ -258,7 +257,7 @@ export default function HomePage() {
                                     Download
                                 </h3>
                                 <p className="text-slate-500 leading-relaxed max-w-sm">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Instantly access your free ebook and start reading right away.
+                                    Hit download and the book is yours, free. Read on the bus, between classes, or up way too late because you had to know what happens next.
                                 </p>
                             </div>
                         </div>
@@ -340,12 +339,8 @@ export default function HomePage() {
 
                             <RevealGroup start="top 85%">
                                 <p className="text-base md:text-lg text-slate-500 leading-relaxed mt-5 max-w-xl">
-                                    iLFEbook is dedicated to making quality
-                                    educational resources accessible to every
-                                    student. Our mission is to empower learners
-                                    by providing free, easy access to digital
-                                    books through innovative campaigns and
-                                    partnerships.
+                                    iLFEbook is part of the Independent Literacy Foundation's mission to bring literacy to every community. 
+                                    We hook you up with free books from independent authors — the kind you won't find just anywhere — so reading feels less like an assignment and more like an adventure.
                                 </p>
                             </RevealGroup>
                         </div>
