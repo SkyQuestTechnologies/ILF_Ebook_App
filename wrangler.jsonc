@@ -34,7 +34,15 @@
 	],
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "ilf_ebook_db",
+			"database_id": "REPLACE_WITH_D1_DATABASE_ID",
+			"migrations_dir": "migrations"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
