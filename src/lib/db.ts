@@ -68,3 +68,110 @@ export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
     .all<BookRow>();
   return res.results ?? [];
 }
+
+export async function getBookBySlug(slug: string): Promise<BookRow | null> {
+  const db = getDB();
+  const row = await db
+    .prepare("SELECT * FROM books WHERE slug = ?1")
+    .bind(slug)
+    .first<BookRow>();
+  return row ?? null;
+}
+
+export async function getBookById(id: string): Promise<BookRow | null> {
+  const db = getDB();
+  const row = await db
+    .prepare("SELECT * FROM books WHERE id = ?1")
+    .bind(id)
+    .first<BookRow>();
+  return row ?? null;
+}
+
+export type BookInput = {
+  title: string;
+  description: string;
+  category: string;
+  free: boolean;
+  price: number;
+  featured: boolean;
+  status: "draft" | "published";
+};
+
+export async function createBook(
+  authorId: string,
+  slug: string,
+  input: BookInput
+): Promise<string> {
+  const db = getDB();
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  await db
+    .prepare(
+      `INSERT INTO books
+        (id, author_id, slug, title, description, category, free, price, featured, status, created_at, updated_at)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)`
+    )
+    .bind(
+      id,
+      authorId,
+      slug,
+      input.title,
+      input.description,
+      input.category,
+      input.free ? 1 : 0,
+      input.price,
+      input.featured ? 1 : 0,
+      input.status,
+      now,
+      now
+    )
+    .run();
+  return id;
+}
+
+export async function updateBook(
+  id: string,
+  authorId: string,
+  input: BookInput
+): Promise<boolean> {
+  const db = getDB();
+  const res = await db
+    .prepare(
+      `UPDATE books SET
+        title = ?1, description = ?2, category = ?3, free = ?4,
+        price = ?5, featured = ?6, status = ?7, updated_at = ?8
+       WHERE id = ?9 AND author_id = ?10`
+    )
+    .bind(
+      input.title,
+      input.description,
+      input.category,
+      input.free ? 1 : 0,
+      input.price,
+      input.featured ? 1 : 0,
+      input.status,
+      Date.now(),
+      id,
+      authorId
+    )
+    .run();
+  return (res.meta?.changes ?? 0) > 0;
+}
+
+export async function deleteBook(id: string, authorId: string): Promise<boolean> {
+  const db = getDB();
+  const res = await db
+    .prepare("DELETE FROM books WHERE id = ?1 AND author_id = ?2")
+    .bind(id, authorId)
+    .run();
+  return (res.meta?.changes ?? 0) > 0;
+}
+
+export async function slugExists(slug: string): Promise<boolean> {
+  const db = getDB();
+  const row = await db
+    .prepare("SELECT 1 AS one FROM books WHERE slug = ?1")
+    .bind(slug)
+    .first<{ one: number }>();
+  return !!row;
+}

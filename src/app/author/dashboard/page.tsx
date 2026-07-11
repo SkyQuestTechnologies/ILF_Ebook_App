@@ -1,16 +1,13 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { verifyAuthorToken, AUTHOR_COOKIE } from "@/lib/author";
+import { getAuthor } from "@/lib/require-author";
 import { listBooksByAuthor, type BookRow } from "@/lib/db";
 import AuthorLogoutButton from "./LogoutButton";
 
 export const runtime = "edge";
 
 export default async function AuthorDashboardPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(AUTHOR_COOKIE)?.value;
-  const claims = token ? await verifyAuthorToken(token) : null;
+  const claims = await getAuthor();
 
   if (!claims) {
     redirect("/author/login");
