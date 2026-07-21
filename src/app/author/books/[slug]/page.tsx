@@ -4,7 +4,6 @@ import { getAuthor } from "@/lib/require-author";
 import { getBookBySlug } from "@/lib/db";
 import BookForm, { type BookFormValues } from "../BookForm";
 
-export const runtime = "edge";
 
 export default async function EditBookPage({
   params,

@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
-import { AUTHOR_COOKIE } from "@/lib/author";
-import { cookieClear } from "@/lib/session";
+import { AUTHOR_COOKIE, clearAuthorCookie } from "@/lib/author";
 
-export const runtime = "edge";
 
 export async function POST() {
   const res = NextResponse.json({ ok: true });
-  res.headers.set("Set-Cookie", cookieClear(AUTHOR_COOKIE));
+  res.headers.set("Set-Cookie", clearAuthorCookie(AUTHOR_COOKIE));
   return res;
 }

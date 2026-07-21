@@ -3,7 +3,6 @@ import { getAuthor } from "@/lib/require-author";
 import { createBook, slugExists } from "@/lib/db";
 import { slugify, parseBookInput } from "@/lib/book-input";
 
-export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   const author = await getAuthor();

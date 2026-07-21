@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getAuthor } from "@/lib/require-author";
 import BookForm from "../BookForm";
 
-export const runtime = "edge";
 
 export default async function NewBookPage() {
   const author = await getAuthor();

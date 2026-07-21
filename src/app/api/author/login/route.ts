@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthorByEmail, createAuthor } from "@/lib/db";
 import { hashPassword, verifyPassword } from "@/lib/password";
-import { createAuthorToken, AUTHOR_COOKIE } from "@/lib/author";
-import { cookieSerialize } from "@/lib/session";
+import { createAuthorToken, AUTHOR_COOKIE, serializeAuthorCookie } from "@/lib/author";
 
-export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as
@@ -56,7 +54,7 @@ export async function POST(req: NextRequest) {
   });
 
   const isDev = process.env.NODE_ENV !== "production";
-  const cookie = cookieSerialize(AUTHOR_COOKIE, token, {
+  const cookie = serializeAuthorCookie(AUTHOR_COOKIE, token, {
     httpOnly: true,
     secure: !isDev,
     sameSite: "Lax",

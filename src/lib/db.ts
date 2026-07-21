@@ -28,15 +28,15 @@ export type BookRow = {
   updated_at: number;
 };
 
-export function getDB(): D1Database {
-  const { env } = getCloudflareContext();
+export async function getDB(): Promise<D1Database> {
+  const { env } = await getCloudflareContext({ async: true });
   const db = (env as { DB?: D1Database }).DB;
   if (!db) throw new Error("D1 binding 'DB' is not configured. Add it to wrangler.jsonc.");
   return db;
 }
 
 export async function getAuthorByEmail(email: string): Promise<AuthorRow | null> {
-  const db = getDB();
+  const db = await getDB();
   const row = await db
     .prepare("SELECT * FROM authors WHERE email = ?1")
     .bind(email)
@@ -51,7 +51,7 @@ export async function createAuthor(a: {
   password_hash: string;
   created_at: number;
 }): Promise<void> {
-  const db = getDB();
+  const db = await getDB();
   await db
     .prepare(
       "INSERT INTO authors (id, email, display_name, password_hash, created_at) VALUES (?1, ?2, ?3, ?4, ?5)"
@@ -61,7 +61,7 @@ export async function createAuthor(a: {
 }
 
 export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
-  const db = getDB();
+  const db = await getDB();
   const res = await db
     .prepare("SELECT * FROM books WHERE author_id = ?1 ORDER BY updated_at DESC")
     .bind(authorId)
@@ -70,7 +70,7 @@ export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
 }
 
 export async function getBookBySlug(slug: string): Promise<BookRow | null> {
-  const db = getDB();
+  const db = await getDB();
   const row = await db
     .prepare("SELECT * FROM books WHERE slug = ?1")
     .bind(slug)
@@ -79,7 +79,7 @@ export async function getBookBySlug(slug: string): Promise<BookRow | null> {
 }
 
 export async function getBookById(id: string): Promise<BookRow | null> {
-  const db = getDB();
+  const db = await getDB();
   const row = await db
     .prepare("SELECT * FROM books WHERE id = ?1")
     .bind(id)
@@ -102,7 +102,7 @@ export async function createBook(
   slug: string,
   input: BookInput
 ): Promise<string> {
-  const db = getDB();
+  const db = await getDB();
   const id = crypto.randomUUID();
   const now = Date.now();
   await db
@@ -134,7 +134,7 @@ export async function updateBook(
   authorId: string,
   input: BookInput
 ): Promise<boolean> {
-  const db = getDB();
+  const db = await getDB();
   const res = await db
     .prepare(
       `UPDATE books SET
@@ -159,7 +159,7 @@ export async function updateBook(
 }
 
 export async function deleteBook(id: string, authorId: string): Promise<boolean> {
-  const db = getDB();
+  const db = await getDB();
   const res = await db
     .prepare("DELETE FROM books WHERE id = ?1 AND author_id = ?2")
     .bind(id, authorId)
@@ -168,7 +168,7 @@ export async function deleteBook(id: string, authorId: string): Promise<boolean>
 }
 
 export async function slugExists(slug: string): Promise<boolean> {
-  const db = getDB();
+  const db = await getDB();
   const row = await db
     .prepare("SELECT 1 AS one FROM books WHERE slug = ?1")
     .bind(slug)

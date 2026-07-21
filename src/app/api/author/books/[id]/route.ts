@@ -3,7 +3,6 @@ import { getAuthor } from "@/lib/require-author";
 import { getBookById, updateBook, deleteBook } from "@/lib/db";
 import { parseBookInput } from "@/lib/book-input";
 
-export const runtime = "edge";
 
 export async function PATCH(
   req: NextRequest,
