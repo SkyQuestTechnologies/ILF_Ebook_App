@@ -39,7 +39,7 @@
 		{
 			"binding": "DB",
 			"database_name": "ilf_ebook_db",
-			"database_id": "REPLACE_WITH_D1_DATABASE_ID",
+			"database_id": "802d4af8-3a8c-4614-94d8-41879c722c10",
 			"migrations_dir": "migrations"
 		}
 	]
