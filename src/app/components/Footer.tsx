@@ -50,6 +50,12 @@ export default function Footer() {
                             >
                                 Help Center
                             </a>
+                            <a
+                                href="/author/dashboard"
+                                className="block text-slate-600 hover:text-blue-600 transition"
+                            >
+                                Author Portal
+                            </a>
                         </div>
                     </div>
                 </div>

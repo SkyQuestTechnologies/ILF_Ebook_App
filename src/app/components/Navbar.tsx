@@ -65,6 +65,9 @@ export default function Navbar() {
           <Link href="/#about" className="hover:text-gray-900 transition-colors">
             About
           </Link>
+          <Link href="/author/dashboard" className="hover:text-gray-900 transition-colors">
+            Author Portal
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
