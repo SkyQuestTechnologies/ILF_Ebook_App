@@ -28,6 +28,46 @@ export type BookRow = {
   updated_at: number;
 };
 
+export type AuthorKpis = {
+  viewed: number;
+  sold: number;
+  downloaded: number;
+};
+
+export type BookEventType = "view" | "sale" | "download";
+
+export async function getAuthorKpis(authorId: string): Promise<AuthorKpis> {
+  const db = await getDB();
+  const res = await db
+    .prepare(
+      `SELECT event_type, COUNT(*) AS n FROM book_events WHERE author_id = ?1 GROUP BY event_type`
+    )
+    .bind(authorId)
+    .all<{ event_type: string; n: number }>();
+  const counts: Record<string, number> = {};
+  for (const row of res.results ?? []) counts[row.event_type] = row.n;
+  return {
+    viewed: counts["view"] ?? 0,
+    sold: counts["sale"] ?? 0,
+    downloaded: counts["download"] ?? 0,
+  };
+}
+
+export async function recordBookEvent(
+  bookId: string,
+  authorId: string,
+  eventType: BookEventType,
+  amount = 0
+): Promise<void> {
+  const db = await getDB();
+  await db
+    .prepare(
+      `INSERT INTO book_events (id, book_id, author_id, event_type, amount, created_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)`
+    )
+    .bind(crypto.randomUUID(), bookId, authorId, eventType, amount, Date.now())
+    .run();
+}
+
 export async function getDB(): Promise<D1Database> {
   const { env } = await getCloudflareContext({ async: true });
   const db = (env as { DB?: D1Database }).DB;
