@@ -56,6 +56,12 @@ export default function Footer() {
                             >
                                 Author Portal
                             </a>
+                            <a
+                                href="/library"
+                                className="block text-slate-600 hover:text-blue-600 transition"
+                            >
+                                Library
+                            </a>
                         </div>
                     </div>
                 </div>

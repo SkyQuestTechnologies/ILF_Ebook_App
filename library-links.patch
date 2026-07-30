@@ -1,0 +1,63 @@
+diff --git a/src/app/author/books/[slug]/page.tsx b/src/app/author/books/[slug]/page.tsx
+index 49a4392..067ea8f 100644
+--- a/src/app/author/books/[slug]/page.tsx
++++ b/src/app/author/books/[slug]/page.tsx
+@@ -40,7 +40,10 @@ export default async function EditBookPage({
+             <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white text-xs font-bold">ILF</span>
+             <span className="text-sm font-semibold tracking-tight text-slate-900">iLFEbook</span>
+           </Link>
+-          <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
++          <div className="flex items-center gap-4">
++            <Link href="/library" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Library</Link>
++            <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
++          </div>
+         </div>
+       </div>
+       <header className="border-b border-slate-200 bg-white">
+diff --git a/src/app/author/books/new/page.tsx b/src/app/author/books/new/page.tsx
+index 240a768..9c103b6 100644
+--- a/src/app/author/books/new/page.tsx
++++ b/src/app/author/books/new/page.tsx
+@@ -16,7 +16,10 @@ export default async function NewBookPage() {
+             <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white text-xs font-bold">ILF</span>
+             <span className="text-sm font-semibold tracking-tight text-slate-900">iLFEbook</span>
+           </Link>
+-          <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
++          <div className="flex items-center gap-4">
++            <Link href="/library" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Library</Link>
++            <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
++          </div>
+         </div>
+       </div>
+       <header className="border-b border-slate-200 bg-white">
+diff --git a/src/app/components/Footer.tsx b/src/app/components/Footer.tsx
+index b58b15a..60a85e0 100644
+--- a/src/app/components/Footer.tsx
++++ b/src/app/components/Footer.tsx
+@@ -56,6 +56,12 @@ export default function Footer() {
+                             >
+                                 Author Portal
+                             </a>
++                            <a
++                                href="/library"
++                                className="block text-slate-600 hover:text-blue-600 transition"
++                            >
++                                Library
++                            </a>
+                         </div>
+                     </div>
+                 </div>
+diff --git a/src/app/components/Navbar.tsx b/src/app/components/Navbar.tsx
+index 95914f0..f04cb71 100644
+--- a/src/app/components/Navbar.tsx
++++ b/src/app/components/Navbar.tsx
+@@ -62,6 +62,9 @@ export default function Navbar() {
+           <Link href="/#featured" className="hover:text-gray-900 transition-colors">
+             Featured
+           </Link>
++          <Link href="/library" className="hover:text-gray-900 transition-colors">
++            Library
++          </Link>
+           <Link href="/#about" className="hover:text-gray-900 transition-colors">
+             About
+           </Link>

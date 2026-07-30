@@ -62,6 +62,9 @@ export default function Navbar() {
           <Link href="/#featured" className="hover:text-gray-900 transition-colors">
             Featured
           </Link>
+          <Link href="/library" className="hover:text-gray-900 transition-colors">
+            Library
+          </Link>
           <Link href="/#about" className="hover:text-gray-900 transition-colors">
             About
           </Link>

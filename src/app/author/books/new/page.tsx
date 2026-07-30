@@ -16,7 +16,10 @@ export default async function NewBookPage() {
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white text-xs font-bold">ILF</span>
             <span className="text-sm font-semibold tracking-tight text-slate-900">iLFEbook</span>
           </Link>
-          <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
+          <div className="flex items-center gap-4">
+            <Link href="/library" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Library</Link>
+            <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
+          </div>
         </div>
       </div>
       <header className="border-b border-slate-200 bg-white">
