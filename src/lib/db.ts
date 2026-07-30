@@ -215,3 +215,38 @@ export async function slugExists(slug: string): Promise<boolean> {
     .first<{ one: number }>();
   return !!row;
 }
+
+// A published book shaped for the public library, with the author's display name
+// joined in. Drafts are excluded — only status = 'published' appears publicly.
+export type PublicBook = {
+  slug: string;
+  title: string;
+  author: string;
+  description: string;
+  category: string;
+  free: boolean;
+  featured: boolean;
+  price: number;
+};
+
+export async function listPublishedBooks(): Promise<PublicBook[]> {
+  const db = await getDB();
+  const res = await db
+    .prepare(
+      `SELECT b.slug, b.title, b.description, b.category,
+              b.free, b.featured, b.price,
+              a.display_name AS author
+         FROM books b
+         JOIN authors a ON a.id = b.author_id
+        WHERE b.status = 'published'
+        ORDER BY b.updated_at DESC`
+    )
+    .all<{
+      slug: string; title: string; description: string; category: string;
+      free: number; featured: number; price: number; author: string;
+    }>();
+  return (res.results ?? []).map((r) => ({
+    slug: r.slug, title: r.title, author: r.author, description: r.description,
+    category: r.category, free: r.free === 1, featured: r.featured === 1, price: r.price,
+  }));
+}

@@ -5,7 +5,7 @@ import Footer from "@/app/components/Footer";
 import SplitHeadline from "@/components/SplitHeadline";
 import RevealGroup from "@/components/RevealGroup";
 import Link from "next/link";
-import { books } from "@/lib/books";
+import { listPublishedBooks, type PublicBook } from "@/lib/db";
 
 const categoryGradients: Record<string, string> = {
   Fiction:              "from-violet-400 to-purple-500",
@@ -26,6 +26,13 @@ export default async function LibraryPage({
 }) {
   const { download } = await searchParams;
   const downloadSlug = download || "";
+
+  let books: PublicBook[] = [];
+  try {
+    books = await listPublishedBooks();
+  } catch {
+    books = [];
+  }
   const featuredBooks = books.filter((b) => b.featured);
 
   return (
