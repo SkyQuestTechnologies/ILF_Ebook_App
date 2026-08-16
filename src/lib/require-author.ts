@@ -14,10 +14,16 @@ const DEV_AUTHOR: AuthorClaims = {
 };
 
 async function bypassEnabled(): Promise<boolean> {
+  // Local dev/preview convenience only. Activates ONLY when DEV_AUTH_BYPASS=1 is
+  // present in the environment (via .dev.vars locally). It is never set in
+  // production — .dev.vars is gitignored and the flag is absent from wrangler.jsonc,
+  // so deployed environments always fall through to real cookie auth below.
   try {
     const { env } = await getCloudflareContext({ async: true });
     if ((env as { DEV_AUTH_BYPASS?: string }).DEV_AUTH_BYPASS === "1") return true;
-  } catch {}
+  } catch {
+    // getCloudflareContext unavailable — treat as no bypass.
+  }
   if (typeof process !== "undefined" && process.env?.DEV_AUTH_BYPASS === "1") return true;
   return false;
 }

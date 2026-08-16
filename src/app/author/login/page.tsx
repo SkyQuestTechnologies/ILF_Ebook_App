@@ -4,26 +4,37 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+type Mode = "login" | "signup";
+
 export default function AuthorLoginPage() {
   const router = useRouter();
+  const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  function switchMode(next: Mode) {
+    setMode(next);
+    setError("");
+  }
+
   async function handleSubmit() {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("/api/author/login", {
+      const endpoint = mode === "signup" ? "/api/author/signup" : "/api/author/login";
+      const payload =
+        mode === "signup" ? { email, password, name } : { email, password };
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, name }),
+        body: JSON.stringify(payload),
       });
       const data = (await res.json()) as { ok?: boolean; next?: string; error?: string };
       if (!res.ok || !data.ok) {
-        setError(data.error || "Login failed.");
+        setError(data.error || "Something went wrong.");
         setLoading(false);
         return;
       }
@@ -34,37 +45,64 @@ export default function AuthorLoginPage() {
     }
   }
 
+  const inputCls =
+    "w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500";
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tighter text-slate-900">Author Portal</h1>
           <p className="mt-2 text-sm text-slate-500">
-            Sign in to manage your books. New here? Signing in creates your account.
+            {mode === "login"
+              ? "Log in to manage your books."
+              : "Create an account to publish your books."}
           </p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+          {/* Mode toggle */}
+          <div className="mb-6 flex rounded-lg bg-slate-100 p-1 text-sm font-medium">
+            <button
+              type="button"
+              onClick={() => switchMode("login")}
+              className={`flex-1 rounded-md px-3 py-1.5 transition-colors ${
+                mode === "login" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+              }`}
+            >
+              Log in
+            </button>
+            <button
+              type="button"
+              onClick={() => switchMode("signup")}
+              className={`flex-1 rounded-md px-3 py-1.5 transition-colors ${
+                mode === "signup" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+              }`}
+            >
+              Sign up
+            </button>
+          </div>
+
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
-                Display name <span className="text-slate-400">(new accounts)</span>
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                placeholder="Jane Green"
-              />
-            </div>
+            {mode === "signup" && (
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Display name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inputCls}
+                  placeholder="Jane Green"
+                />
+              </div>
+            )}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className={inputCls}
                 placeholder="you@example.com"
               />
             </div>
@@ -75,8 +113,8 @@ export default function AuthorLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                placeholder="Min 8 characters"
+                className={inputCls}
+                placeholder={mode === "signup" ? "Min 8 characters" : "Your password"}
               />
             </div>
 
@@ -90,8 +128,32 @@ export default function AuthorLoginPage() {
               disabled={loading}
               className="w-full rounded-lg bg-blue-600 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-60"
             >
-              {loading ? "Signing in…" : "Sign in"}
+              {loading
+                ? mode === "signup"
+                  ? "Creating account…"
+                  : "Logging in…"
+                : mode === "signup"
+                  ? "Create account"
+                  : "Log in"}
             </button>
+
+            <p className="text-center text-sm text-slate-500">
+              {mode === "login" ? (
+                <>
+                  New here?{" "}
+                  <button type="button" onClick={() => switchMode("signup")} className="font-medium text-blue-600 hover:underline">
+                    Create an account
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{" "}
+                  <button type="button" onClick={() => switchMode("login")} className="font-medium text-blue-600 hover:underline">
+                    Log in
+                  </button>
+                </>
+              )}
+            </p>
           </div>
         </div>
 

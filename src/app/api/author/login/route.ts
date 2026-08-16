@@ -1,50 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuthorByEmail, createAuthor } from "@/lib/db";
-import { hashPassword, verifyPassword } from "@/lib/password";
+import { getAuthorByEmail } from "@/lib/db";
+import { verifyPassword } from "@/lib/password";
 import { createAuthorToken, AUTHOR_COOKIE, serializeAuthorCookie } from "@/lib/author";
-
 
 export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as
-    | { email?: unknown; password?: unknown; name?: unknown }
+    | { email?: unknown; password?: unknown }
     | null;
 
   const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
   const password = typeof body?.password === "string" ? body.password : "";
-  const name = typeof body?.name === "string" ? body.name.trim() : "";
 
-  if (!email || !email.includes("@") || password.length < 8) {
-    return NextResponse.json(
-      { error: "Valid email and password (min 8 chars) required." },
-      { status: 400 }
-    );
+  if (!email || !password) {
+    return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
   }
 
-  let author = await getAuthorByEmail(email);
-
-  if (!author) {
-    // Create-on-first-use (slice 1 convenience; replace with explicit signup later).
-    const id = crypto.randomUUID();
-    const password_hash = await hashPassword(password);
-    await createAuthor({
-      id,
-      email,
-      display_name: name || email.split("@")[0],
-      password_hash,
-      created_at: Date.now(),
-    });
-    author = {
-      id,
-      email,
-      display_name: name || email.split("@")[0],
-      password_hash,
-      created_at: Date.now(),
-    };
-  } else {
-    const ok = await verifyPassword(password, author.password_hash);
-    if (!ok) {
-      return NextResponse.json({ error: "Invalid credentials." }, { status: 401 });
-    }
+  const author = await getAuthorByEmail(email);
+  // Same generic message whether the email is unknown or the password is wrong,
+  // so we don't leak which emails have accounts.
+  if (!author || !(await verifyPassword(password, author.password_hash))) {
+    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
   }
 
   const token = await createAuthorToken({
