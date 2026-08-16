@@ -75,6 +75,47 @@ export async function getDB(): Promise<D1Database> {
   return db;
 }
 
+export async function getBucket(): Promise<R2Bucket> {
+  const { env } = await getCloudflareContext({ async: true });
+  const bucket = (env as { BOOK_FILES?: R2Bucket }).BOOK_FILES;
+  if (!bucket) throw new Error("R2 binding 'BOOK_FILES' is not configured. Add it to wrangler.jsonc.");
+  return bucket;
+}
+
+// Persist the R2 object key for a book's uploaded PDF, ownership-scoped.
+export async function setBookPdfKey(
+  bookId: string,
+  authorId: string,
+  pdfKey: string
+): Promise<boolean> {
+  const db = await getDB();
+  const res = await db
+    .prepare("UPDATE books SET pdf_key = ?1, updated_at = ?2 WHERE id = ?3 AND author_id = ?4")
+    .bind(pdfKey, Date.now(), bookId, authorId)
+    .run();
+  return (res.meta?.changes ?? 0) > 0;
+}
+
+// For the public download route: resolve a slug to its pdf_key + author + access flags.
+export async function getBookForDownload(
+  slug: string
+): Promise<{ id: string; author_id: string; title: string; free: boolean; status: string; pdf_key: string | null } | null> {
+  const db = await getDB();
+  const row = await db
+    .prepare("SELECT id, author_id, title, free, status, pdf_key FROM books WHERE slug = ?1")
+    .bind(slug)
+    .first<{ id: string; author_id: string; title: string; free: number; status: string; pdf_key: string | null }>();
+  if (!row) return null;
+  return {
+    id: row.id,
+    author_id: row.author_id,
+    title: row.title,
+    free: row.free === 1,
+    status: row.status,
+    pdf_key: row.pdf_key,
+  };
+}
+
 export async function getAuthorByEmail(email: string): Promise<AuthorRow | null> {
   const db = await getDB();
   const row = await db

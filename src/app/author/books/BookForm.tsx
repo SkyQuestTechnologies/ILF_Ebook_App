@@ -37,6 +37,7 @@ export default function BookForm({
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
 
   function set<K extends keyof BookFormValues>(key: K, val: BookFormValues[K]) {
     setValues((v) => ({ ...v, [key]: val }));
@@ -64,12 +65,28 @@ export default function BookForm({
           status: values.status,
         }),
       });
-      const data = (await res.json()) as { ok?: boolean; slug?: string; error?: string };
+      const data = (await res.json()) as { ok?: boolean; slug?: string; id?: string; error?: string };
       if (!res.ok || !data.ok) {
         setError(data.error || "Save failed.");
         setSaving(false);
         return;
       }
+
+      // If a PDF was selected, upload it now that we have a book id.
+      const bookId = mode === "create" ? data.id : values.id;
+      if (pdfFile && bookId) {
+        const fd = new FormData();
+        fd.append("bookId", bookId);
+        fd.append("file", pdfFile);
+        const up = await fetch("/api/author/books/upload", { method: "POST", body: fd });
+        const upData = (await up.json()) as { ok?: boolean; error?: string };
+        if (!up.ok || !upData.ok) {
+          setError(upData.error || "Book saved, but file upload failed. Edit the book to retry.");
+          setSaving(false);
+          return;
+        }
+      }
+
       router.push("/author/dashboard");
       router.refresh();
     } catch {
@@ -184,6 +201,19 @@ export default function BookForm({
           />
           Featured
         </label>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-slate-700 mb-1">
+          Book PDF {mode === "edit" && <span className="text-slate-400">(upload to replace)</span>}
+        </label>
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => setPdfFile(e.target.files?.[0] ?? null)}
+          className="block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+        />
+        <p className="mt-1 text-xs text-slate-400">PDF only, up to 50 MB.</p>
       </div>
 
       {error && (

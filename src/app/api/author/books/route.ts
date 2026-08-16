@@ -30,11 +30,12 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  let bookId: string;
   try {
-    await createBook(author.sub, slug, parsed.value);
+    bookId = await createBook(author.sub, slug, parsed.value);
   } catch {
     return NextResponse.json({ error: "Could not create book." }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, slug });
+  return NextResponse.json({ ok: true, slug, id: bookId });
 }

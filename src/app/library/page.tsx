@@ -143,8 +143,8 @@ export default async function LibraryPage({
                           <span className="text-[10px] uppercase tracking-wider font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
                             {book.category}
                           </span>
-                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${book.free ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-600"}`}>
-                            {book.free ? "Free" : "Premium"}
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${book.free ? "bg-emerald-50 text-emerald-700" : "bg-blue-50 text-blue-700"}`}>
+                            {book.free ? "Free" : `$${book.price.toFixed(2)}`}
                           </span>
                           {book.featured && (
                             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
@@ -162,7 +162,7 @@ export default async function LibraryPage({
                         </p>
 
                         <div className="mt-auto pt-2 flex items-center gap-1 text-xs font-semibold text-slate-400 transition-all duration-200 group-hover:text-blue-600">
-                          <span>{book.free ? "Download Free" : "View Book"}</span>
+                          <span>{book.free ? "Download Free" : `Buy · $${book.price.toFixed(2)}`}</span>
                           <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                         </div>
                       </div>

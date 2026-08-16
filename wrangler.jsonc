@@ -42,6 +42,12 @@
 			"database_id": "802d4af8-3a8c-4614-94d8-41879c722c10",
 			"migrations_dir": "migrations"
 		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "BOOK_FILES",
+			"bucket_name": "ilf-ebook-files"
+		}
 	]
 	/**
 	 * Smart Placement
