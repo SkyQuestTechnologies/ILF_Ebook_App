@@ -141,6 +141,39 @@ export async function createAuthor(a: {
     .run();
 }
 
+export type ReaderRow = {
+  id: string;
+  email: string;
+  display_name: string;
+  password_hash: string;
+  created_at: number;
+};
+
+export async function getReaderByEmail(email: string): Promise<ReaderRow | null> {
+  const db = await getDB();
+  const row = await db
+    .prepare("SELECT * FROM readers WHERE email = ?1")
+    .bind(email)
+    .first<ReaderRow>();
+  return row ?? null;
+}
+
+export async function createReader(r: {
+  id: string;
+  email: string;
+  display_name: string;
+  password_hash: string;
+  created_at: number;
+}): Promise<void> {
+  const db = await getDB();
+  await db
+    .prepare(
+      "INSERT INTO readers (id, email, display_name, password_hash, created_at) VALUES (?1, ?2, ?3, ?4, ?5)"
+    )
+    .bind(r.id, r.email, r.display_name, r.password_hash, r.created_at)
+    .run();
+}
+
 export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
   const db = await getDB();
   const res = await db
@@ -280,6 +313,7 @@ export async function listPublishedBooks(): Promise<PublicBook[]> {
          FROM books b
          JOIN authors a ON a.id = b.author_id
         WHERE b.status = 'published'
+          AND (b.free = 0 OR b.pdf_key IS NOT NULL)
         ORDER BY b.updated_at DESC`
     )
     .all<{
@@ -290,4 +324,28 @@ export async function listPublishedBooks(): Promise<PublicBook[]> {
     slug: r.slug, title: r.title, author: r.author, description: r.description,
     category: r.category, free: r.free === 1, featured: r.featured === 1, price: r.price,
   }));
+}
+
+// Single published book for public pages (paywall, detail), with author name joined.
+export async function getPublishedBookBySlug(slug: string): Promise<PublicBook | null> {
+  const db = await getDB();
+  const r = await db
+    .prepare(
+      `SELECT b.slug, b.title, b.description, b.category,
+              b.free, b.featured, b.price,
+              a.display_name AS author
+         FROM books b
+         JOIN authors a ON a.id = b.author_id
+        WHERE b.slug = ?1 AND b.status = 'published'`
+    )
+    .bind(slug)
+    .first<{
+      slug: string; title: string; description: string; category: string;
+      free: number; featured: number; price: number; author: string;
+    }>();
+  if (!r) return null;
+  return {
+    slug: r.slug, title: r.title, author: r.author, description: r.description,
+    category: r.category, free: r.free === 1, featured: r.featured === 1, price: r.price,
+  };
 }

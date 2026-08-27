@@ -1,0 +1,635 @@
+diff --git a/migrations/0003_readers.sql b/migrations/0003_readers.sql
+new file mode 100644
+index 0000000..a46fa6c
+--- /dev/null
++++ b/migrations/0003_readers.sql
+@@ -0,0 +1,12 @@
++-- Migration 0003: readers
++-- Reader accounts (people who download books). Mirrors authors, kept separate
++-- so reader and author identities never collide.
++-- Applied with: wrangler d1 migrations apply ilf_ebook_db
++
++CREATE TABLE IF NOT EXISTS readers (
++  id            TEXT PRIMARY KEY,           -- uuid
++  email         TEXT NOT NULL UNIQUE,
++  display_name  TEXT NOT NULL,
++  password_hash TEXT NOT NULL,              -- PBKDF2 (salt:hash), see lib/password.ts
++  created_at    INTEGER NOT NULL            -- epoch ms
++);
+diff --git a/src/app/api/auth/login/route.ts b/src/app/api/auth/login/route.ts
+index 5810f9b..16dfc28 100644
+--- a/src/app/api/auth/login/route.ts
++++ b/src/app/api/auth/login/route.ts
+@@ -1,75 +1,41 @@
+ import { NextRequest, NextResponse } from "next/server";
+-
+-export const runtime = "edge";
+-
+-function isSafePath(path: string): boolean {
+-  return path.startsWith("/") && !path.startsWith("//");
+-}
+-
+-function base64UrlEncode(value: string): string {
+-  return btoa(value)
+-    .replaceAll("+", "-")
+-    .replaceAll("/", "_")
+-    .replaceAll("=", "");
+-}
+-
+-function createDemoJwt(email: string): string {
+-  const header = base64UrlEncode(JSON.stringify({ alg: "none", typ: "JWT" }));
+-  const payload = base64UrlEncode(
+-    JSON.stringify({ email, iat: Math.floor(Date.now() / 1000) })
+-  );
+-  return `${header}.${payload}.demo-signature`;
+-}
++import { getReaderByEmail } from "@/lib/db";
++import { verifyPassword } from "@/lib/password";
++import { createReaderToken, READER_COOKIE, serializeReaderCookie } from "@/lib/reader";
+ 
+ export async function POST(req: NextRequest) {
+-  const formData = await req.formData();
+-
+-  const username = String(formData.get("username") || "").trim();
+-  const email = String(formData.get("email") || "").trim().toLowerCase();
+-  const password = String(formData.get("password") || "").trim();
+-  const nextRaw = String(formData.get("next") || "/library");
+-  const download = String(formData.get("download") || "");
+-
+-  const next = isSafePath(nextRaw) ? nextRaw : "/library";
+-
+-  const errorBase = new URL("/login", req.url);
+-  errorBase.searchParams.set("next", next);
+-  if (download) errorBase.searchParams.set("download", download);
+-
+-  if (!username || !password) {
+-    errorBase.searchParams.set("error", "missing_fields");
+-    return NextResponse.redirect(errorBase);
++  const body = (await req.json().catch(() => null)) as
++    | { email?: unknown; password?: unknown; next?: unknown; download?: unknown }
++    | null;
++
++  const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
++  const password = typeof body?.password === "string" ? body.password : "";
++  const nextRaw = typeof body?.next === "string" ? body.next : "/library";
++  const download = typeof body?.download === "string" ? body.download : "";
++  const next = nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : "/library";
++
++  if (!email || !password) {
++    return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
+   }
+ 
+-  if (!email || !email.includes("@")) {
+-    errorBase.searchParams.set("error", "invalid_email");
+-    return NextResponse.redirect(errorBase);
++  const reader = await getReaderByEmail(email);
++  if (!reader || !(await verifyPassword(password, reader.password_hash))) {
++    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+   }
+ 
+-  const redirectUrl = new URL(next, req.url);
+-  if (download) redirectUrl.searchParams.set("download", download);
+-
+-  const res = NextResponse.redirect(redirectUrl);
+-
+-  res.cookies.set({
+-    name: "ilf_session",
+-    value: createDemoJwt(email),
+-    httpOnly: true,
+-    secure: false,
+-    sameSite: "lax",
+-    path: "/",
+-    maxAge: 60 * 60 * 24 * 7,
++  const token = await createReaderToken({
++    id: reader.id,
++    email: reader.email,
++    name: reader.display_name,
+   });
+ 
+-  res.cookies.set({
+-    name: "ilf_user",
+-    value: JSON.stringify({ email, username }),
+-    httpOnly: false,
+-    secure: false,
+-    sameSite: "lax",
+-    path: "/",
+-    maxAge: 60 * 60 * 24 * 7,
++  const isProd = process.env.NODE_ENV === "production";
++  const cookie = serializeReaderCookie(READER_COOKIE, token, {
++    httpOnly: true, secure: isProd, sameSite: "Lax", path: "/", maxAge: 7 * 24 * 60 * 60,
+   });
+ 
++  const nextUrl = download ? `${next}?download=${encodeURIComponent(download)}` : next;
++  const res = NextResponse.json({ ok: true, next: nextUrl });
++  res.headers.set("Set-Cookie", cookie);
+   return res;
+ }
+diff --git a/src/app/api/auth/signup/route.ts b/src/app/api/auth/signup/route.ts
+new file mode 100644
+index 0000000..472ebdc
+--- /dev/null
++++ b/src/app/api/auth/signup/route.ts
+@@ -0,0 +1,54 @@
++import { NextRequest, NextResponse } from "next/server";
++import { getReaderByEmail, createReader } from "@/lib/db";
++import { hashPassword } from "@/lib/password";
++import { createReaderToken, READER_COOKIE, serializeReaderCookie } from "@/lib/reader";
++
++export async function POST(req: NextRequest) {
++  const body = (await req.json().catch(() => null)) as
++    | { email?: unknown; password?: unknown; name?: unknown; next?: unknown; download?: unknown }
++    | null;
++
++  const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
++  const password = typeof body?.password === "string" ? body.password : "";
++  const name = typeof body?.name === "string" ? body.name.trim() : "";
++  const nextRaw = typeof body?.next === "string" ? body.next : "/library";
++  const download = typeof body?.download === "string" ? body.download : "";
++  const next = nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : "/library";
++
++  if (!email || !email.includes("@")) {
++    return NextResponse.json({ error: "A valid email is required." }, { status: 400 });
++  }
++  if (password.length < 8) {
++    return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
++  }
++  if (!name) {
++    return NextResponse.json({ error: "Name is required." }, { status: 400 });
++  }
++
++  const existing = await getReaderByEmail(email);
++  if (existing) {
++    return NextResponse.json(
++      { error: "An account with this email already exists. Please log in." },
++      { status: 409 }
++    );
++  }
++
++  const id = crypto.randomUUID();
++  const password_hash = await hashPassword(password);
++  try {
++    await createReader({ id, email, display_name: name, password_hash, created_at: Date.now() });
++  } catch {
++    return NextResponse.json({ error: "Could not create account." }, { status: 500 });
++  }
++
++  const token = await createReaderToken({ id, email, name });
++  const isProd = process.env.NODE_ENV === "production";
++  const cookie = serializeReaderCookie(READER_COOKIE, token, {
++    httpOnly: true, secure: isProd, sameSite: "Lax", path: "/", maxAge: 7 * 24 * 60 * 60,
++  });
++
++  const nextUrl = download ? `${next}?download=${encodeURIComponent(download)}` : next;
++  const res = NextResponse.json({ ok: true, next: nextUrl });
++  res.headers.set("Set-Cookie", cookie);
++  return res;
++}
+diff --git a/src/app/api/session/route.ts b/src/app/api/session/route.ts
+index c7549fe..7f2c895 100644
+--- a/src/app/api/session/route.ts
++++ b/src/app/api/session/route.ts
+@@ -1,98 +1,15 @@
+-
+ import { NextRequest, NextResponse } from "next/server";
+-import { verifySessionToken } from "@/lib/session";
++import { verifyReaderToken } from "@/lib/reader";
+ 
+ export async function GET(req: NextRequest) {
+   try {
+     const cookie = req.cookies.get("ilf_session")?.value;
+-    const secret = process.env.ILF_SESSION_SECRET || "dev-only-insecure-secret-change-me";
+-    let claims = null;
+-    try {
+-      if (cookie) {
+-        claims = await verifySessionToken(secret, cookie);
+-      }
+-    } catch {
+-      claims = null;
+-    }
+-    if (!claims || !claims.email) {
++    const reader = cookie ? await verifyReaderToken(cookie) : null;
++    if (!reader || !reader.email) {
+       return NextResponse.json({ session: null });
+     }
+-    return NextResponse.json({ session: { email: claims.email } });
++    return NextResponse.json({ session: { email: reader.email, name: reader.name } });
+   } catch {
+     return NextResponse.json({ session: null });
+   }
+ }
+-import { createSessionToken, cookieSerialize } from "@/lib/session";
+-
+-// DEMO_USERS map for demo user storage
+-const DEMO_USERS = new Map<
+-  string,
+-  { id: string; email: string; created: number }
+->();
+-
+-export const runtime = "edge";
+-
+-export async function POST(req: NextRequest) {
+-  try {
+-    // Safe parse and type the body
+-    const body = (await req.json().catch(() => null)) as { email?: unknown; campaign?: unknown; next?: unknown } | null;
+-    const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
+-    const campaign = typeof body?.campaign === "string" ? body.campaign : undefined;
+-    const next = typeof body?.next === "string" ? body.next : undefined;
+-
+-    // Validate email: non-empty, string, includes @
+-    if (!email || !email.includes("@")) {
+-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+-    }
+-
+-    // Lookup or create user
+-    let user = DEMO_USERS.get(email);
+-    if (!user) {
+-      user = { id: crypto.randomUUID(), email, created: Date.now() };
+-      DEMO_USERS.set(email, user);
+-    }
+-
+-    const now = Math.floor(Date.now() / 1000);
+-    const exp = now + 7 * 24 * 60 * 60;
+-    const claims = {
+-      sub: user.id,
+-      email: user.email,
+-      unlocked: campaign ? [campaign] : [],
+-      iat: now,
+-      exp,
+-    };
+-
+-    // Harden secret handling: require secret in production
+-    const secret = process.env.ILF_SESSION_SECRET;
+-    const isDev = process.env.NODE_ENV !== "production";
+-    if (!secret && !isDev) {
+-      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+-    }
+-    const sessionSecret = secret || "dev-only-insecure-secret-change-me";
+-
+-    const token = await createSessionToken(sessionSecret, claims);
+-
+-    // Set cookie security based on environment
+-    const cookie = cookieSerialize("ilf_session", token, {
+-      httpOnly: true,
+-      secure: !isDev,
+-      sameSite: "Lax",
+-      path: "/",
+-      maxAge: 7 * 24 * 60 * 60,
+-    });
+-
+-    // Safe redirect logic
+-    let safeNext = "/";
+-    if (typeof next === "string" && next.startsWith("/") && !next.startsWith("//")) {
+-      safeNext = next;
+-    } else if (campaign) {
+-      safeNext = `/unlocked/${encodeURIComponent(campaign)}`;
+-    }
+-
+-    const res = NextResponse.json({ ok: true, next: safeNext });
+-    res.headers.set("Set-Cookie", cookie);
+-    return res;
+-  } catch {
+-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+-  }
+-}
+diff --git a/src/app/download/[slug]/route.ts b/src/app/download/[slug]/route.ts
+index 613a1a8..61695c3 100644
+--- a/src/app/download/[slug]/route.ts
++++ b/src/app/download/[slug]/route.ts
+@@ -1,9 +1,6 @@
+ import { NextRequest, NextResponse } from "next/server";
+ import { getBookForDownload, getBucket } from "@/lib/db";
+-
+-function hasValidJwtShape(token?: string): boolean {
+-  return Boolean(token && token.split(".").length === 3);
+-}
++import { verifyReaderToken } from "@/lib/reader";
+ 
+ export async function GET(
+   req: NextRequest,
+@@ -11,9 +8,10 @@ export async function GET(
+ ) {
+   const { slug } = await params;
+ 
+-  // Reader must be logged in (unchanged gate). Redirect to login otherwise.
++  // Reader must be logged in with a valid signed token.
+   const token = req.cookies.get("ilf_session")?.value;
+-  if (!hasValidJwtShape(token)) {
++  const reader = token ? await verifyReaderToken(token) : null;
++  if (!reader) {
+     const loginUrl = new URL("/login", req.url);
+     loginUrl.searchParams.set("next", "/library");
+     loginUrl.searchParams.set("download", slug);
+diff --git a/src/app/login/ReaderAuthForm.tsx b/src/app/login/ReaderAuthForm.tsx
+new file mode 100644
+index 0000000..b2d308c
+--- /dev/null
++++ b/src/app/login/ReaderAuthForm.tsx
+@@ -0,0 +1,91 @@
++"use client";
++
++import { useState } from "react";
++import { useRouter } from "next/navigation";
++
++type Mode = "login" | "signup";
++
++export default function ReaderAuthForm({ next, download }: { next: string; download: string }) {
++  const router = useRouter();
++  const [mode, setMode] = useState<Mode>("login");
++  const [email, setEmail] = useState("");
++  const [password, setPassword] = useState("");
++  const [name, setName] = useState("");
++  const [error, setError] = useState("");
++  const [loading, setLoading] = useState(false);
++
++  async function handleSubmit() {
++    setError("");
++    setLoading(true);
++    try {
++      const endpoint = mode === "signup" ? "/api/auth/signup" : "/api/auth/login";
++      const payload = mode === "signup"
++        ? { email, password, name, next, download }
++        : { email, password, next, download };
++      const res = await fetch(endpoint, {
++        method: "POST",
++        headers: { "Content-Type": "application/json" },
++        body: JSON.stringify(payload),
++      });
++      const data = (await res.json()) as { ok?: boolean; next?: string; error?: string };
++      if (!res.ok || !data.ok) {
++        setError(data.error || "Something went wrong.");
++        setLoading(false);
++        return;
++      }
++      router.push(data.next || "/library");
++    } catch {
++      setError("Network error. Try again.");
++      setLoading(false);
++    }
++  }
++
++  const inputCls = "w-full rounded-xl border border-neutral-300 px-4 py-2.5 text-neutral-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500";
++
++  return (
++    <div className="mt-8 space-y-4">
++      <div className="flex rounded-xl bg-neutral-100 p-1 text-sm font-medium">
++        <button type="button" onClick={() => { setMode("login"); setError(""); }}
++          className={`flex-1 rounded-lg px-3 py-2 transition-colors ${mode === "login" ? "bg-white text-neutral-900 shadow-sm" : "text-neutral-500"}`}>
++          Log in
++        </button>
++        <button type="button" onClick={() => { setMode("signup"); setError(""); }}
++          className={`flex-1 rounded-lg px-3 py-2 transition-colors ${mode === "signup" ? "bg-white text-neutral-900 shadow-sm" : "text-neutral-500"}`}>
++          Sign up
++        </button>
++      </div>
++
++      {mode === "signup" && (
++        <div>
++          <label className="block text-sm font-medium text-neutral-800 mb-1">Name</label>
++          <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={inputCls} placeholder="Your name" />
++        </div>
++      )}
++      <div>
++        <label className="block text-sm font-medium text-neutral-800 mb-1">Email</label>
++        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} placeholder="you@example.com" />
++      </div>
++      <div>
++        <label className="block text-sm font-medium text-neutral-800 mb-1">Password</label>
++        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
++          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
++          className={inputCls} placeholder={mode === "signup" ? "Min 8 characters" : "Your password"} />
++      </div>
++
++      {error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>}
++
++      <button type="button" onClick={handleSubmit} disabled={loading}
++        className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-60">
++        {loading ? "Please wait…" : mode === "signup" ? "Create account" : "Log in"}
++      </button>
++
++      <p className="text-center text-sm text-neutral-500">
++        {mode === "login" ? (
++          <>New here? <button type="button" onClick={() => { setMode("signup"); setError(""); }} className="font-medium text-blue-600 hover:underline">Create an account</button></>
++        ) : (
++          <>Already have an account? <button type="button" onClick={() => { setMode("login"); setError(""); }} className="font-medium text-blue-600 hover:underline">Log in</button></>
++        )}
++      </p>
++    </div>
++  );
++}
+diff --git a/src/app/login/page.tsx b/src/app/login/page.tsx
+index f394296..4e3a2f0 100644
+--- a/src/app/login/page.tsx
++++ b/src/app/login/page.tsx
+@@ -1,84 +1,20 @@
++import ReaderAuthForm from "./ReaderAuthForm";
++
+ export default async function LoginPage({
+   searchParams,
+ }: {
+-  searchParams: Promise<{
+-    next?: string;
+-    download?: string;
+-    error?: string;
+-  }>;
++  searchParams: Promise<{ next?: string; download?: string; error?: string }>;
+ }) {
+   const params = await searchParams;
+-
+   const next = params.next || "/library";
+   const download = params.download || "";
+-  const error = params.error;
+ 
+   return (
+     <main className="min-h-screen bg-white flex items-center justify-center px-6">
+       <section className="w-full max-w-md rounded-3xl border border-neutral-200 bg-white p-8 shadow-sm">
+-        <h1 className="text-3xl font-bold text-neutral-950">Welcome back</h1>
+-        <p className="mt-3 text-sm text-neutral-600">Sign in to access your ebooks.</p>
+-
+-        <form action="/api/auth/login" method="post" className="mt-8 space-y-5">
+-          <input type="hidden" name="next" value={next} />
+-          <input type="hidden" name="download" value={download} />
+-
+-          <div>
+-            <label htmlFor="username" className="block text-sm font-medium text-neutral-800">
+-              Full Name
+-            </label>
+-            <input
+-              id="username"
+-              name="username"
+-              type="text"
+-              required
+-              placeholder="John Doe"
+-              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+-            />
+-          </div>
+-
+-          <div>
+-            <label htmlFor="email" className="block text-sm font-medium text-neutral-800">
+-              Email address
+-            </label>
+-            <input
+-              id="email"
+-              name="email"
+-              type="email"
+-              required
+-              placeholder="you@example.com"
+-              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+-            />
+-          </div>
+-
+-          <div>
+-            <label htmlFor="password" className="block text-sm font-medium text-neutral-800">
+-              Password
+-            </label>
+-            <input
+-              id="password"
+-              name="password"
+-              type="password"
+-              required
+-              placeholder="••••••••"
+-              className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 text-neutral-950 outline-none focus:border-neutral-950 text-sm"
+-            />
+-          </div>
+-
+-          {error === "invalid_email" && (
+-            <p className="text-sm font-medium text-red-600">Please enter a valid email address.</p>
+-          )}
+-          {error === "missing_fields" && (
+-            <p className="text-sm font-medium text-red-600">All fields are required.</p>
+-          )}
+-
+-          <button
+-            type="submit"
+-            className="w-full rounded-xl bg-neutral-950 px-5 py-3 font-semibold text-white hover:bg-neutral-800 transition"
+-          >
+-            Sign in
+-          </button>
+-        </form>
++        <h1 className="text-3xl font-bold text-neutral-950">Welcome to iLFEbook</h1>
++        <p className="mt-3 text-sm text-neutral-600">Sign in or create an account to download ebooks.</p>
++        <ReaderAuthForm next={next} download={download} />
+       </section>
+     </main>
+   );
+diff --git a/src/lib/db.ts b/src/lib/db.ts
+index ec62cae..61d80bd 100644
+--- a/src/lib/db.ts
++++ b/src/lib/db.ts
+@@ -141,6 +141,39 @@ export async function createAuthor(a: {
+     .run();
+ }
+ 
++export type ReaderRow = {
++  id: string;
++  email: string;
++  display_name: string;
++  password_hash: string;
++  created_at: number;
++};
++
++export async function getReaderByEmail(email: string): Promise<ReaderRow | null> {
++  const db = await getDB();
++  const row = await db
++    .prepare("SELECT * FROM readers WHERE email = ?1")
++    .bind(email)
++    .first<ReaderRow>();
++  return row ?? null;
++}
++
++export async function createReader(r: {
++  id: string;
++  email: string;
++  display_name: string;
++  password_hash: string;
++  created_at: number;
++}): Promise<void> {
++  const db = await getDB();
++  await db
++    .prepare(
++      "INSERT INTO readers (id, email, display_name, password_hash, created_at) VALUES (?1, ?2, ?3, ?4, ?5)"
++    )
++    .bind(r.id, r.email, r.display_name, r.password_hash, r.created_at)
++    .run();
++}
++
+ export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
+   const db = await getDB();
+   const res = await db
+diff --git a/src/lib/reader.ts b/src/lib/reader.ts
+new file mode 100644
+index 0000000..86f93a7
+--- /dev/null
++++ b/src/lib/reader.ts
+@@ -0,0 +1,72 @@
++// lib/reader.ts — self-contained reader auth (no @/lib/session dependency)
++import { getCloudflareContext } from "@opennextjs/cloudflare";
++
++export const READER_COOKIE = "ilf_session";
++
++export type ReaderClaims = {
++  sub: string; email: string; name: string;
++  role: "reader"; iat: number; exp: number;
++};
++
++async function getSecret(): Promise<string> {
++  try {
++    const { env } = await getCloudflareContext({ async: true });
++    const s = (env as { ILF_SESSION_SECRET?: string }).ILF_SESSION_SECRET;
++    if (s) return s;
++  } catch {}
++  if (typeof process !== "undefined" && process.env?.ILF_SESSION_SECRET) return process.env.ILF_SESSION_SECRET;
++  return "dev-only-reader-secret-change-me";
++}
++
++function b64urlFromBytes(bytes: Uint8Array): string {
++  let s = ""; for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
++  return btoa(s).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
++}
++function b64urlFromString(str: string): string { return b64urlFromBytes(new TextEncoder().encode(str)); }
++function bytesFromB64url(b64: string): Uint8Array {
++  const pad = b64.length % 4 === 0 ? "" : "=".repeat(4 - (b64.length % 4));
++  const bin = atob(b64.replaceAll("-", "+").replaceAll("_", "/") + pad);
++  const out = new Uint8Array(bin.length);
++  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
++  return out;
++}
++
++export async function createReaderToken(r: { id: string; email: string; name: string }): Promise<string> {
++  const now = Math.floor(Date.now() / 1000);
++  const claims: ReaderClaims = { sub: r.id, email: r.email, name: r.name, role: "reader", iat: now, exp: now + 7 * 24 * 60 * 60 };
++  const enc = new TextEncoder();
++  const data = `${b64urlFromString(JSON.stringify({ alg: "HS256", typ: "JWT" }))}.${b64urlFromString(JSON.stringify(claims))}`;
++  const key = await crypto.subtle.importKey("raw", enc.encode(await getSecret()), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
++  const sig = await crypto.subtle.sign("HMAC", key, enc.encode(data));
++  return `${data}.${b64urlFromBytes(new Uint8Array(sig))}`;
++}
++
++export async function verifyReaderToken(token: string): Promise<ReaderClaims | null> {
++  if (!token) return null;
++  const parts = token.split("."); if (parts.length !== 3) return null;
++  const data = `${parts[0]}.${parts[1]}`;
++  const enc = new TextEncoder();
++  const key = await crypto.subtle.importKey("raw", enc.encode(await getSecret()), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
++  const valid = await crypto.subtle.verify("HMAC", key, new Uint8Array(bytesFromB64url(parts[2])), enc.encode(data));
++  if (!valid) return null;
++  try {
++    const claims = JSON.parse(new TextDecoder().decode(bytesFromB64url(parts[1]))) as ReaderClaims;
++    const now = Math.floor(Date.now() / 1000);
++    if (typeof claims.exp !== "number" || now > claims.exp) return null;
++    if (claims.role !== "reader") return null;
++    return claims;
++  } catch { return null; }
++}
++
++export type CookieOptions = { httpOnly?: boolean; secure?: boolean; sameSite?: "Lax" | "Strict" | "None"; path?: string; maxAge?: number };
++export function serializeReaderCookie(name: string, value: string, opts: CookieOptions = {}): string {
++  const p = [`${name}=${value}`, `Path=${opts.path ?? "/"}`];
++  if (opts.maxAge !== undefined) p.push(`Max-Age=${opts.maxAge}`);
++  p.push(`SameSite=${opts.sameSite ?? "Lax"}`);
++  if (opts.httpOnly !== false) p.push("HttpOnly");
++  if (opts.secure !== false) p.push("Secure");
++  return p.join("; ");
++}
++export function clearReaderCookie(name: string): string {
++  return `${name}=; Path=/; Max-Age=0; SameSite=Lax; HttpOnly; Secure`;
++}

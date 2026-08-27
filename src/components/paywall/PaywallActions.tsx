@@ -4,23 +4,20 @@ import { useRouter } from "next/navigation";
 export default function PaywallActions({ slug }: { slug: string; title: string; price: number }) {
   const router = useRouter();
 
-  function handleBuy() {
-    const user = sessionStorage.getItem("ilf_session_user");
-    if (!user) {
-      router.push(`/login?next=/checkout/${slug}`);
-    } else {
-      router.push(`/checkout/${slug}`);
-    }
-  }
-
   return (
     <div className="w-full flex flex-col gap-3">
+      <div className="w-full rounded-xl bg-blue-50 border border-blue-200 px-4 py-3 text-center">
+        <p className="text-sm font-semibold text-blue-800">Purchasing coming soon</p>
+        <p className="text-xs text-blue-600 mt-1">
+          Paid titles aren&apos;t available for purchase just yet. Check back soon.
+        </p>
+      </div>
       <button
         type="button"
-        onClick={handleBuy}
-        className="w-full rounded-xl bg-blue-600 h-11 px-3 text-sm font-semibold text-white hover:bg-blue-700 transition flex items-center justify-center"
+        disabled
+        className="w-full rounded-xl bg-blue-600/50 h-11 px-3 text-sm font-semibold text-white cursor-not-allowed flex items-center justify-center"
       >
-        Get Premium Access
+        Buy — coming soon
       </button>
       <button
         type="button"

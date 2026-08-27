@@ -1,4 +1,19 @@
+"use client";
+import { useEffect, useState } from "react";
+
+type Session = { role: "author" | "reader"; email: string; name: string } | null;
+
 export default function Footer() {
+    const [session, setSession] = useState<Session>(null);
+    useEffect(() => {
+        let cancelled = false;
+        fetch("/api/session")
+            .then((r) => r.json() as Promise<{ session: Session }>)
+            .then((data) => { if (!cancelled) setSession(data.session ?? null); })
+            .catch(() => {});
+        return () => { cancelled = true; };
+    }, []);
+
     return (
         <footer className="w-full border-t border-slate-100 bg-white">
             <div className="mx-auto max-w-7xl px-6 py-16">

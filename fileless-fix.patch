@@ -1,0 +1,100 @@
+diff --git a/src/app/download/[slug]/route.ts b/src/app/download/[slug]/route.ts
+index 613a1a8..d647c43 100644
+--- a/src/app/download/[slug]/route.ts
++++ b/src/app/download/[slug]/route.ts
+@@ -1,9 +1,6 @@
+ import { NextRequest, NextResponse } from "next/server";
+ import { getBookForDownload, getBucket } from "@/lib/db";
+-
+-function hasValidJwtShape(token?: string): boolean {
+-  return Boolean(token && token.split(".").length === 3);
+-}
++import { verifyReaderToken } from "@/lib/reader";
+ 
+ export async function GET(
+   req: NextRequest,
+@@ -11,9 +8,10 @@ export async function GET(
+ ) {
+   const { slug } = await params;
+ 
+-  // Reader must be logged in (unchanged gate). Redirect to login otherwise.
++  // Reader must be logged in with a valid signed token.
+   const token = req.cookies.get("ilf_session")?.value;
+-  if (!hasValidJwtShape(token)) {
++  const reader = token ? await verifyReaderToken(token) : null;
++  if (!reader) {
+     const loginUrl = new URL("/login", req.url);
+     loginUrl.searchParams.set("next", "/library");
+     loginUrl.searchParams.set("download", slug);
+@@ -22,22 +20,28 @@ export async function GET(
+ 
+   const book = await getBookForDownload(slug);
+   if (!book || book.status !== "published") {
+-    return new NextResponse("Not found.", { status: 404 });
++    const url = new URL("/library", req.url);
++    url.searchParams.set("error", "not-found");
++    return NextResponse.redirect(url);
+   }
+ 
+-  // Paid books are not downloadable in the free-launch scope. (Purchase flow TBD.)
++  // Paid books go to the paywall, not a download.
+   if (!book.free) {
+-    return new NextResponse("This title requires purchase.", { status: 402 });
++    return NextResponse.redirect(new URL(`/paywall/${slug}`, req.url));
+   }
+ 
+   if (!book.pdf_key) {
+-    return new NextResponse("No file available for this book yet.", { status: 404 });
++    const url = new URL("/library", req.url);
++    url.searchParams.set("error", "no-file");
++    return NextResponse.redirect(url);
+   }
+ 
+   const bucket = await getBucket();
+   const obj = await bucket.get(book.pdf_key);
+   if (!obj) {
+-    return new NextResponse("File not found in storage.", { status: 404 });
++    const url = new URL("/library", req.url);
++    url.searchParams.set("error", "no-file");
++    return NextResponse.redirect(url);
+   }
+ 
+   const safeName = book.title.replace(/[^a-z0-9\-_ ]/gi, "").trim() || slug;
+diff --git a/src/app/library/page.tsx b/src/app/library/page.tsx
+index d9fe534..a0d81f4 100644
+--- a/src/app/library/page.tsx
++++ b/src/app/library/page.tsx
+@@ -22,10 +22,16 @@ const allCategories = ["All","Fiction","Nonfiction","Education","Career","Financ
+ export default async function LibraryPage({
+   searchParams,
+ }: {
+-  searchParams: Promise<{ download?: string }>;
++  searchParams: Promise<{ download?: string; error?: string }>;
+ }) {
+-  const { download } = await searchParams;
++  const { download, error } = await searchParams;
+   const downloadSlug = download || "";
++  const errorMsg =
++    error === "no-file"
++      ? "That book doesn't have a downloadable file yet. Please try another title."
++      : error === "not-found"
++        ? "That book couldn't be found."
++        : "";
+ 
+   let books: PublicBook[] = [];
+   try {
+@@ -40,6 +46,14 @@ export default async function LibraryPage({
+       <Navbar />
+       <AutoDownload slug={downloadSlug} />
+ 
++      {errorMsg && (
++        <div className="mx-auto max-w-4xl px-6 pt-6">
++          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
++            {errorMsg}
++          </div>
++        </div>
++      )}
++
+       <main className="flex-1">
+ 
+         {/* Hero */}

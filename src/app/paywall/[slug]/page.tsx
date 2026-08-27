@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import PaywallActions from "@/components/paywall/PaywallActions";
-import { books } from "@/lib/books";
+import { getPublishedBookBySlug } from "@/lib/db";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
@@ -10,8 +10,8 @@ export default async function PaywallPage({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-    const book = books.find((b) => b.slug === slug && !b.free);
-    if (!book) return notFound();
+    const book = await getPublishedBookBySlug(slug);
+    if (!book || book.free) return notFound();
 
     const originalPrice = (book.price * 1.5).toFixed(2);
 

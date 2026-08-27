@@ -1,75 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
-
-export const runtime = "edge";
-
-function isSafePath(path: string): boolean {
-  return path.startsWith("/") && !path.startsWith("//");
-}
-
-function base64UrlEncode(value: string): string {
-  return btoa(value)
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replaceAll("=", "");
-}
-
-function createDemoJwt(email: string): string {
-  const header = base64UrlEncode(JSON.stringify({ alg: "none", typ: "JWT" }));
-  const payload = base64UrlEncode(
-    JSON.stringify({ email, iat: Math.floor(Date.now() / 1000) })
-  );
-  return `${header}.${payload}.demo-signature`;
-}
+import { getReaderByEmail } from "@/lib/db";
+import { verifyPassword } from "@/lib/password";
+import { createReaderToken, READER_COOKIE, serializeReaderCookie } from "@/lib/reader";
 
 export async function POST(req: NextRequest) {
-  const formData = await req.formData();
+  const body = (await req.json().catch(() => null)) as
+    | { email?: unknown; password?: unknown; next?: unknown; download?: unknown }
+    | null;
 
-  const username = String(formData.get("username") || "").trim();
-  const email = String(formData.get("email") || "").trim().toLowerCase();
-  const password = String(formData.get("password") || "").trim();
-  const nextRaw = String(formData.get("next") || "/library");
-  const download = String(formData.get("download") || "");
+  const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
+  const password = typeof body?.password === "string" ? body.password : "";
+  const nextRaw = typeof body?.next === "string" ? body.next : "/library";
+  const download = typeof body?.download === "string" ? body.download : "";
+  const next = nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : "/library";
 
-  const next = isSafePath(nextRaw) ? nextRaw : "/library";
-
-  const errorBase = new URL("/login", req.url);
-  errorBase.searchParams.set("next", next);
-  if (download) errorBase.searchParams.set("download", download);
-
-  if (!username || !password) {
-    errorBase.searchParams.set("error", "missing_fields");
-    return NextResponse.redirect(errorBase);
+  if (!email || !password) {
+    return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
   }
 
-  if (!email || !email.includes("@")) {
-    errorBase.searchParams.set("error", "invalid_email");
-    return NextResponse.redirect(errorBase);
+  const reader = await getReaderByEmail(email);
+  if (!reader || !(await verifyPassword(password, reader.password_hash))) {
+    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
   }
 
-  const redirectUrl = new URL(next, req.url);
-  if (download) redirectUrl.searchParams.set("download", download);
-
-  const res = NextResponse.redirect(redirectUrl);
-
-  res.cookies.set({
-    name: "ilf_session",
-    value: createDemoJwt(email),
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
+  const token = await createReaderToken({
+    id: reader.id,
+    email: reader.email,
+    name: reader.display_name,
   });
 
-  res.cookies.set({
-    name: "ilf_user",
-    value: JSON.stringify({ email, username }),
-    httpOnly: false,
-    secure: false,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
+  const isProd = process.env.NODE_ENV === "production";
+  const cookie = serializeReaderCookie(READER_COOKIE, token, {
+    httpOnly: true, secure: isProd, sameSite: "Lax", path: "/", maxAge: 7 * 24 * 60 * 60,
   });
 
+  const nextUrl = download ? `${next}?download=${encodeURIComponent(download)}` : next;
+  const res = NextResponse.json({ ok: true, next: nextUrl });
+  res.headers.set("Set-Cookie", cookie);
   return res;
 }

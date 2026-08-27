@@ -1,0 +1,132 @@
+diff --git a/src/app/paywall/[slug]/page.tsx b/src/app/paywall/[slug]/page.tsx
+index 723d3c0..fe3edba 100644
+--- a/src/app/paywall/[slug]/page.tsx
++++ b/src/app/paywall/[slug]/page.tsx
+@@ -1,6 +1,6 @@
+ import { notFound } from "next/navigation";
+ import PaywallActions from "@/components/paywall/PaywallActions";
+-import { books } from "@/lib/books";
++import { getPublishedBookBySlug } from "@/lib/db";
+ import Navbar from "@/app/components/Navbar";
+ import Footer from "@/app/components/Footer";
+ 
+@@ -10,8 +10,8 @@ export default async function PaywallPage({
+     params: Promise<{ slug: string }>;
+ }) {
+     const { slug } = await params;
+-    const book = books.find((b) => b.slug === slug && !b.free);
+-    if (!book) return notFound();
++    const book = await getPublishedBookBySlug(slug);
++    if (!book || book.free) return notFound();
+ 
+     const originalPrice = (book.price * 1.5).toFixed(2);
+ 
+diff --git a/src/components/paywall/PaywallActions.tsx b/src/components/paywall/PaywallActions.tsx
+index e1b517b..dd1496c 100644
+--- a/src/components/paywall/PaywallActions.tsx
++++ b/src/components/paywall/PaywallActions.tsx
+@@ -4,23 +4,20 @@ import { useRouter } from "next/navigation";
+ export default function PaywallActions({ slug }: { slug: string; title: string; price: number }) {
+   const router = useRouter();
+ 
+-  function handleBuy() {
+-    const user = sessionStorage.getItem("ilf_session_user");
+-    if (!user) {
+-      router.push(`/login?next=/checkout/${slug}`);
+-    } else {
+-      router.push(`/checkout/${slug}`);
+-    }
+-  }
+-
+   return (
+     <div className="w-full flex flex-col gap-3">
++      <div className="w-full rounded-xl bg-blue-50 border border-blue-200 px-4 py-3 text-center">
++        <p className="text-sm font-semibold text-blue-800">Purchasing coming soon</p>
++        <p className="text-xs text-blue-600 mt-1">
++          Paid titles aren&apos;t available for purchase just yet. Check back soon.
++        </p>
++      </div>
+       <button
+         type="button"
+-        onClick={handleBuy}
+-        className="w-full rounded-xl bg-blue-600 h-11 px-3 text-sm font-semibold text-white hover:bg-blue-700 transition flex items-center justify-center"
++        disabled
++        className="w-full rounded-xl bg-blue-600/50 h-11 px-3 text-sm font-semibold text-white cursor-not-allowed flex items-center justify-center"
+       >
+-        Get Premium Access
++        Buy — coming soon
+       </button>
+       <button
+         type="button"
+diff --git a/src/lib/db.ts b/src/lib/db.ts
+index ec62cae..3acdde8 100644
+--- a/src/lib/db.ts
++++ b/src/lib/db.ts
+@@ -141,6 +141,39 @@ export async function createAuthor(a: {
+     .run();
+ }
+ 
++export type ReaderRow = {
++  id: string;
++  email: string;
++  display_name: string;
++  password_hash: string;
++  created_at: number;
++};
++
++export async function getReaderByEmail(email: string): Promise<ReaderRow | null> {
++  const db = await getDB();
++  const row = await db
++    .prepare("SELECT * FROM readers WHERE email = ?1")
++    .bind(email)
++    .first<ReaderRow>();
++  return row ?? null;
++}
++
++export async function createReader(r: {
++  id: string;
++  email: string;
++  display_name: string;
++  password_hash: string;
++  created_at: number;
++}): Promise<void> {
++  const db = await getDB();
++  await db
++    .prepare(
++      "INSERT INTO readers (id, email, display_name, password_hash, created_at) VALUES (?1, ?2, ?3, ?4, ?5)"
++    )
++    .bind(r.id, r.email, r.display_name, r.password_hash, r.created_at)
++    .run();
++}
++
+ export async function listBooksByAuthor(authorId: string): Promise<BookRow[]> {
+   const db = await getDB();
+   const res = await db
+@@ -291,3 +324,27 @@ export async function listPublishedBooks(): Promise<PublicBook[]> {
+     category: r.category, free: r.free === 1, featured: r.featured === 1, price: r.price,
+   }));
+ }
++
++// Single published book for public pages (paywall, detail), with author name joined.
++export async function getPublishedBookBySlug(slug: string): Promise<PublicBook | null> {
++  const db = await getDB();
++  const r = await db
++    .prepare(
++      `SELECT b.slug, b.title, b.description, b.category,
++              b.free, b.featured, b.price,
++              a.display_name AS author
++         FROM books b
++         JOIN authors a ON a.id = b.author_id
++        WHERE b.slug = ?1 AND b.status = 'published'`
++    )
++    .bind(slug)
++    .first<{
++      slug: string; title: string; description: string; category: string;
++      free: number; featured: number; price: number; author: string;
++    }>();
++  if (!r) return null;
++  return {
++    slug: r.slug, title: r.title, author: r.author, description: r.description,
++    category: r.category, free: r.free === 1, featured: r.featured === 1, price: r.price,
++  };
++}

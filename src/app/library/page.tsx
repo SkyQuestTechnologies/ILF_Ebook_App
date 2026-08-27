@@ -22,10 +22,16 @@ const allCategories = ["All","Fiction","Nonfiction","Education","Career","Financ
 export default async function LibraryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ download?: string }>;
+  searchParams: Promise<{ download?: string; error?: string }>;
 }) {
-  const { download } = await searchParams;
+  const { download, error } = await searchParams;
   const downloadSlug = download || "";
+  const errorMsg =
+    error === "no-file"
+      ? "That book doesn't have a downloadable file yet. Please try another title."
+      : error === "not-found"
+        ? "That book couldn't be found."
+        : "";
 
   let books: PublicBook[] = [];
   try {
@@ -39,6 +45,14 @@ export default async function LibraryPage({
     <div className="min-h-screen flex flex-col bg-white antialiased">
       <Navbar />
       <AutoDownload slug={downloadSlug} />
+
+      {errorMsg && (
+        <div className="mx-auto max-w-4xl px-6 pt-6">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            {errorMsg}
+          </div>
+        </div>
+      )}
 
       <main className="flex-1">
 
